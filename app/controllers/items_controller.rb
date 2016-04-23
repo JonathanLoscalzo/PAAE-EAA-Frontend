@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  skip_before_action :require_login, only: [:new]
 
   # GET /items
   # GET /items.json
@@ -11,7 +12,6 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
 
-    
   end
 
   # GET /items/new
@@ -26,10 +26,12 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(item_params)
+    #@item = Item.new(item_params)
+    
+    @item = ItemsHelper.save(item_params, session[:JSESSIONID])
 
     respond_to do |format|
-      if @item.save
+      if !@item.nil?
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else
