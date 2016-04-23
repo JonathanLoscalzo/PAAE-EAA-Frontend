@@ -13,7 +13,11 @@ module ItemsHelper
 			headers: { 'Content-Type' => 'application/json'}
 		}
 		response = HTTParty.post "http://localhost:8080/web-module/items", options
-		response.code==201? Item.new(item_params) : nil
+		item = Item.new(item_params)
+		unless response.code==201 
+			item.errors.add(:item, 'no se pudo guardar, codigo de respuesta #{response.code}')
+		end
+		item
 	end
 
 	def self.all(j_session_id)

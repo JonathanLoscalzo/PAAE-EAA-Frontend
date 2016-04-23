@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
     @item = ItemsHelper.save(item_params, session[:JSESSIONID])
 
     respond_to do |format|
-      if !@item.nil?
+      if @item.errors.empty?
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else
