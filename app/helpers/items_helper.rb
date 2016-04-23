@@ -15,5 +15,15 @@ module ItemsHelper
 		response = HTTParty.post "http://localhost:8080/web-module/items", options
 		response.code==201? Item.new(item_params) : nil
 	end
+
+	def self.all(j_session_id)
+		response = HTTParty.get "http://localhost:8080/web-module/items", cookies: {"JSESSIONID": j_session_id}
+		items_params = JSON.parse(response.body)
+		
+		items_params.map do |elem|
+			Item.new(elem)
+		end
+		
+	end
 	
 end
