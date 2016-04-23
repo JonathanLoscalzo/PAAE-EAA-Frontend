@@ -29,5 +29,9 @@ module ItemsHelper
 		end
 		
 	end
+
+	def self.destroy(id,j_session_id)
+		response = HTTParty.delete "http://localhost:8080/web-module/items/#{id}", cookies: {"JSESSIONID": j_session_id}
+	end
 	
 end
