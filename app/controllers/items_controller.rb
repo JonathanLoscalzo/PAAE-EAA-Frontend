@@ -26,10 +26,8 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    #@item = Item.new(item_params)
-    
-    @item = ItemsHelper.save(item_params, session[:JSESSIONID])
 
+    @item = ItemsHelper.save(item_params, session[:JSESSIONID])
     respond_to do |format|
       if @item.errors.empty?
         format.html { redirect_to @item, notice: 'Item was successfully created.' }

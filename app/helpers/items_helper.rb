@@ -12,11 +12,14 @@ module ItemsHelper
 			body: item_params.to_json,
 			headers: { 'Content-Type' => 'application/json'}
 		}
-		response = HTTParty.post "http://localhost:8080/web-module/items", options
 		item = Item.new(item_params)
-		unless response.code==201 
-			item.errors.add(:item, 'no se pudo guardar, codigo de respuesta #{response.code}')
+		if item.valid?
+			response = HTTParty.post "http://localhost:8080/web-module/items", options
+			unless response.code==201 
+				item.errors.add(:item, 'no se pudo guardar, codigo de respuesta '+ response.code.to_s)
+			end
 		end
+		
 		item
 	end
 

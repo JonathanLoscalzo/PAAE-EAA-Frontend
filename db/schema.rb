@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422030837) do
+ActiveRecord::Schema.define(version: 20160502135639) do
 
   create_table "items", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "amount"
-    t.integer  "price"
+    t.string   "name",       null: false
+    t.integer  "amount",     null: false
+    t.integer  "price",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
