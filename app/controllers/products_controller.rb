@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
     @product = ProductsHelper.save(product_params, session[:JSESSIONID])
     respond_to do |format|
       if @product.errors.empty?
-        format.html { redirect_to @product, notice: 'Item was successfully created.' }
+        format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
