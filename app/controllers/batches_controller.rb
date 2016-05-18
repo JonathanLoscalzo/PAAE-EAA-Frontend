@@ -65,6 +65,6 @@ class BatchesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def batch_params
-      params.require(:batch).permit(:detail, :expiration_date, :entry_date, :product_id)
+      params.require(:batch).permit(:detail, :expiration_date, :entry_date, :product_id, :total_units)
     end
 end

@@ -27,6 +27,8 @@
   <thead>
     <tr>
       <th>Detalle</th>
+      <th>Unidades restantes</th>
+      <th>Unidades totales</th>
       <th>Fecha de entrada</th>
       <th>Fecha de vencimiento</th>
       
@@ -38,6 +40,8 @@
     <% @batches.each do |batch| %>
       <tr>
         <td><%= batch.detail %></td>
+        <td><%= batch.remaining_units %></td>
+        <td><%= batch.total_units %></td>
         <td><%= batch.entry_date %></td>
         <td><%= batch.expiration_date %></td>
       </tr>

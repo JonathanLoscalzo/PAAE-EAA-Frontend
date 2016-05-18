@@ -15,7 +15,7 @@ module BatchesHelper
 			headers: { 'Content-Type' => 'application/json'}
 		}
 		batch = product.batches.build(batch_params)
-		
+
 		if batch.valid?
 			response = HTTParty.post url, options
 			unless response.code==201 

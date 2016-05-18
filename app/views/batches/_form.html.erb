@@ -11,9 +11,14 @@
     </div>
   <% end %>
   <%= f.text_field :product_id,  hidden: true %>
+
   <div class="field">
     <%= f.label :detail %><br />
     <%= f.text_field :detail %>
+  </div>
+  <div class="field">
+    <%= f.label :total_units %><br />
+    <%= f.number_field :total_units %>
   </div>
   <div class="field">
     <%= f.label :expiration_date %><br />
