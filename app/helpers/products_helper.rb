@@ -1,6 +1,11 @@
 module ProductsHelper
+
+	@@products_url = "http://localhost:8080/web-module/products"
+
+
 	def self.find(id, j_session_id)
-		response = HTTParty.get "http://localhost:8080/web-module/products/#{id}", cookies: {"JSESSIONID": j_session_id}
+		
+		response = HTTParty.get @@products_url + "/#{id}", cookies: {"JSESSIONID": j_session_id}
 		Product.new (JSON.parse(response.body))
 	end
 
@@ -12,7 +17,7 @@ module ProductsHelper
 		}
 		product = Product.new(product_params)
 		if product.valid?
-			response = HTTParty.post "http://localhost:8080/web-module/products", options
+			response = HTTParty.post @@products_url, options
 			unless response.code==201 
 				product.errors.add(:product, 'no se pudo guardar. Codigo de respuesta: '+ response.code.to_s)
 			end
@@ -21,7 +26,8 @@ module ProductsHelper
 	end
 
 	def self.all(j_session_id)
-		response = HTTParty.get "http://localhost:8080/web-module/products", cookies: {"JSESSIONID": j_session_id}
+		
+		response = HTTParty.get  @@products_url, cookies: {"JSESSIONID": j_session_id}
 		product_params = JSON.parse(response.body)
 		
 		product_params.map do |elem|
@@ -31,6 +37,8 @@ module ProductsHelper
 	end
 
 	def self.destroy(id,j_session_id)
-		response = HTTParty.delete "http://localhost:8080/web-module/products/#{id}", cookies: {"JSESSIONID": j_session_id}
+		response = HTTParty.delete @@products_url+"/#{id}", cookies: {"JSESSIONID": j_session_id}
 	end
+
+
 end

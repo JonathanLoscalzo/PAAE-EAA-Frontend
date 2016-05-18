@@ -1,3 +1,3 @@
 class Product < ActiveRecord::Base
-  belongs_to :batch
+  has_many :batches
 end

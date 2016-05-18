@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Detail:</b>
+  <%= @batch.detail %>
+</p>
+
+<p>
+  <b>Expiration date:</b>
+  <%= @batch.expiration_date %>
+</p>
+
+<p>
+  <b>Entry date:</b>
+  <%= @batch.entry_date %>
+</p>
+
+<p>
+  <b>Product:</b>
+  <%= @batch.product %>
+</p>
+
+
+<%= link_to 'Edit', edit_product_batch_path(@batch.product, @batch) %> |
+<%= link_to 'Back', product_batches_path(@batch.product) %>
