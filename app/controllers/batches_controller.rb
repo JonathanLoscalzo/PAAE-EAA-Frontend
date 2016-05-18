@@ -27,7 +27,7 @@ class BatchesController < ApplicationController
     @batch = BatchesHelper.save(@product, batch_params, session[:JSESSIONID])
     respond_to do |format|
       if @batch.errors.empty?
-        format.html { redirect_to @batch, notice: 'Batch was successfully created.' }
+        format.html {  redirect_to product_path(@product), notice: 'Batch was successfully created.' }
         format.json { render :show, status: :created, location: @batch }
       else
         format.html { render :new }

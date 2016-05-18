@@ -17,12 +17,13 @@
   </div>
   <div class="field">
     <%= f.label :expiration_date %><br />
-    <%= f.date_select :expiration_date %>
+    <%= f.date_field :expiration_date, :class =>"datepicker", :required=>true %>
   </div>
   <div class="field">
     <%= f.label :entry_date %><br />
-    <%= f.date_select :entry_date %>
+    <%= f.date_field :entry_date, :class =>"datepicker", :required=>true %>
   </div>
+  
 
   <div class="actions">
     <%= f.submit %>

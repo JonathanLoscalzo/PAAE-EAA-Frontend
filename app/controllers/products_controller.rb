@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @batches = BatchesHelper.all(@product, session[:JSESSIONID])
   end
 
   # GET /products/new
