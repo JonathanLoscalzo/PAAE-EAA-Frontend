@@ -5,10 +5,31 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+	<body>
 
-<%= yield %>
+		<nav>
+		    <div class="nav-wrapper">
+					<a href="/" class="brand-logo right">Rails</a>
+					<ul id="nav-mobile" class="left">
+						<li><a href="/products">Productos</a></li>
+					</ul>
+					</div>
+	    </nav> 
 
-</body>
+         <main>
+			<div class="container" >
+		 		<%= yield %>
+			</div>
+         </main>
+	
+
+		<footer class="page-footer">
+			<div class="container">
+				
+			</div>
+		</footer>
+
+	</body>
 </html>

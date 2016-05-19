@@ -1,8 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listado de productos</h1>
+<h3>Listado de productos</h3>
 
-<table>
+<a class="btn-floating btn-large waves-effect waves-light red" href="/products/new">
+  <i class="material-icons">add</i>
+</a>
+<table class="striped">
   <thead>
     <tr>
       <th>Nombre</th>
@@ -21,7 +24,6 @@
         <td><%= product.amount %></td>
         
         <td><%= link_to 'Show', product_path(product)  %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -30,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+

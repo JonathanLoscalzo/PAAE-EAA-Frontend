@@ -1,9 +1,6 @@
 <p id="notice"><%= notice %></p>
+<h3>Producto: <%= @product.name %></h3>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @product.name %>
-</p>
 
 <p>
   <strong>Cantidad minima:</strong>
@@ -16,14 +13,16 @@
 </p>
 
 <br>
-<%= link_to 'Edit product', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
-<br><br>
-<p>
- <strong>Lotes:</strong>
-</p>
 
-<table>
+
+
+<h4>Lotes:</h4>
+
+<a class="btn-floating btn-large waves-effect waves-light red" href=<%= new_product_batch_url(@product) %>>
+  <i class="material-icons">add</i>
+</a>
+
+<table class="striped">
   <thead>
     <tr>
       <th>Detalle</th>
@@ -49,7 +48,8 @@
   </tbody>
 </table>
 <br>
+<%= link_to 'Back', products_path, :class =>"btn waves-effect waves-light" %>
+<br><br>
 
-
- <%= link_to 'Agregar lote', new_product_batch_url(@product) %><br><br>
+ 
 

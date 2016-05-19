@@ -14,11 +14,11 @@
 
   <div class="field">
     <%= f.label :detail %><br />
-    <%= f.text_field :detail %>
+    <%= f.text_field :detail , :required=>true%>
   </div>
   <div class="field">
     <%= f.label :total_units %><br />
-    <%= f.number_field :total_units %>
+    <%= f.number_field :total_units , :required=>true%>
   </div>
   <div class="field">
     <%= f.label :expiration_date %><br />
@@ -30,7 +30,7 @@
   </div>
   
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <button class="btn waves-effect waves-light" type="submit" name="action">Crear
+    <i class="material-icons right">send</i>
+  </button>
 <% end %>
