@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518214155) do
+ActiveRecord::Schema.define(version: 20160519023610) do
 
   create_table "batches", force: :cascade do |t|
     t.string   "detail"
@@ -55,5 +55,12 @@ ActiveRecord::Schema.define(version: 20160518214155) do
   end
 
   add_index "products", ["batch_id"], name: "index_products_on_batch_id"
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "product_request_url"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
 end

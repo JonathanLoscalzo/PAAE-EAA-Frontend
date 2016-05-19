@@ -23,8 +23,8 @@
         <td><%= product.minimum %></td>
         <td><%= product.amount %></td>
         
-        <td><%= link_to 'Show', product_path(product)  %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Detalles', product_path(product)  %></td>
+        <td><%= link_to 'Eliminar', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

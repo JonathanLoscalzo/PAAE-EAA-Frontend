@@ -1,0 +1,25 @@
+<%= form_for(@supplier) do |f| %>
+  <% if @supplier.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@supplier.errors.count, "error") %> prohibited this supplier from being saved:</h2>
+
+      <ul>
+      <% @supplier.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :product_request_url %><br>
+    <%= f.text_field :product_request_url %>
+  </div>
+  <button class="btn waves-effect waves-light" type="submit" name="action">Crear
+    <i class="material-icons right">send</i>
+  </button>
+<% end %>
