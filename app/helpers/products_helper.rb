@@ -6,7 +6,12 @@ module ProductsHelper
 	def self.find(id, j_session_id)
 		
 		response = HTTParty.get @@products_url + "/#{id}", cookies: {"JSESSIONID": j_session_id}
-		Product.new (JSON.parse(response.body))
+
+		product = Product.new (JSON.parse(response.body))
+
+		supplier = SuppliersHelper.find(product.supplier_id, j_session_id)
+		product.supplier = supplier
+		product
 	end
 
 	def self.save(product_params, j_session_id)

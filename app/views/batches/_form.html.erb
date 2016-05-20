@@ -1,14 +1,14 @@
 <%= form_for([@batch.product, @batch]) do |f| %>
   <% if @batch.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@batch.errors.count, "error") %> prohibited this batch from being saved:</h2>
+  <div class="card-panel purple lighten-2">
+    <h5><%= pluralize(@batch.errors.count, "error") %> prohibited this batch from being saved:</h5>
 
-      <ul>
+      <ul class="collection">
       <% @batch.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li class="collection-item"><%= msg %></li>
       <% end %>
       </ul>
-    </div>
+  </div>
   <% end %>
   <%= f.text_field :product_id,  hidden: true %>
 

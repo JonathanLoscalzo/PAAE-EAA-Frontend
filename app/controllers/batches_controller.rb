@@ -1,7 +1,8 @@
 class BatchesController < ApplicationController
   before_action :set_product
   before_action :set_batch, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :require_login, only: [:new]
+  
   # GET products/1/batches
   def index
     @batches = @product.batches
@@ -23,7 +24,7 @@ class BatchesController < ApplicationController
   # POST products/1/batches
   def create
    
-
+   
     @batch = BatchesHelper.save(@product, batch_params, session[:JSESSIONID])
     respond_to do |format|
       if @batch.errors.empty?

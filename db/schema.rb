@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519023610) do
+ActiveRecord::Schema.define(version: 20160520011838) do
 
   create_table "batches", force: :cascade do |t|
     t.string   "detail"
@@ -50,11 +50,13 @@ ActiveRecord::Schema.define(version: 20160519023610) do
     t.integer  "minimum"
     t.integer  "amount"
     t.integer  "batch_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "supplier_id"
   end
 
   add_index "products", ["batch_id"], name: "index_products_on_batch_id"
+  add_index "products", ["supplier_id"], name: "index_products_on_supplier_id"
 
   create_table "suppliers", force: :cascade do |t|
     t.string   "name"

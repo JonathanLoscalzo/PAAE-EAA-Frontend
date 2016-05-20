@@ -17,6 +17,8 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @suppliers = SuppliersHelper.all(session[:JSESSIONID])
+
   end
 
   # GET /products/1/edit
@@ -26,7 +28,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-
+    
     @product = ProductsHelper.save(product_params, session[:JSESSIONID])
     respond_to do |format|
       if @product.errors.empty?
@@ -73,6 +75,6 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       # , :batch_id --- acordarse de permitir en el futuro el batch_id
-      params.require(:product).permit(:name, :minimum, :amount)
+      params.require(:product).permit(:name, :minimum, :amount, :supplier_id)
     end
 end

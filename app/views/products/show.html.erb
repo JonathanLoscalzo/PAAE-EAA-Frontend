@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
-<h3>Producto: <%= @product.name %></h3>
+<h3> <%= @product.name %></h3>
 
 
+
+
+<h5>Proveedor:  <%= @product.supplier.name %></h5>
 <p>
   <strong>Cantidad minima:</strong>
   <%= @product.minimum %>
@@ -11,7 +14,6 @@
   <strong>Cantidad actual:</strong>
   <%= @product.amount %>
 </p>
-
 <br>
 
 

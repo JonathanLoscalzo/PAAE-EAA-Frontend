@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name , :required=>true %>
   </div>
   <div class="field">
     <%= f.label :product_request_url %><br>
-    <%= f.text_field :product_request_url %>
+    <%= f.text_field :product_request_url, :required=>true  %>
   </div>
   <button class="btn waves-effect waves-light" type="submit" name="action">Crear
     <i class="material-icons right">send</i>

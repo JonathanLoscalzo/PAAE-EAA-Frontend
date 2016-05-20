@@ -9,18 +9,24 @@ module BatchesHelper
 
 	def self.save(product, batch_params, j_session_id)
 		url = batches_url(batch_params[:product_id])
+		
+
+
 		options = {
-			cookies: {"JSESSIONID": j_session_id},
+			#cookies: {"JSESSIONID": j_session_id},
 			body: batch_params.to_json,
-			headers: { 'Content-Type' => 'application/json'}
+			headers: { 'Content-Type' => 'application/json',
+						'Cookie' => "JSESSIONID=#{j_session_id}"}
 		}
+
 		batch = product.batches.build(batch_params)
 
 		if batch.valid?
 			response = HTTParty.post url, options
+			
 			unless response.code==201 
 				batch.errors.add(:batch, 'no se pudo guardar. Codigo de respuesta: '+ response.code.to_s)
-
+				asd
 			end
 		end
 		batch

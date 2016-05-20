@@ -15,11 +15,21 @@
     <%= f.label :name %><br>
     <%= f.text_field :name, :required=>true %>
   </div>
+
+
+
   <div class="field">
     <%= f.label :minimum %><br>
     <%= f.number_field :minimum, :required=>true %>
   </div>
 
+
+  <div class="field">
+    <%= f.label "Proveedor: " %>
+    <%= collection_select(:product, :supplier_id, @suppliers, :id, :name, {}, class: "browser-default", required: true) %>   
+  </div>
+
+  <br><br>
   <button class="btn waves-effect waves-light" type="submit" name="action">Crear
     <i class="material-icons right">send</i>
   </button>
