@@ -13,10 +13,9 @@ module BatchesHelper
 
 
 		options = {
-			#cookies: {"JSESSIONID": j_session_id},
+			cookies: {"JSESSIONID": j_session_id},
 			body: batch_params.to_json,
-			headers: { 'Content-Type' => 'application/json',
-						'Cookie' => "JSESSIONID=#{j_session_id}"}
+			headers: { 'Content-Type' => 'application/json'}
 		}
 
 		batch = product.batches.build(batch_params)
