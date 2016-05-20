@@ -18,7 +18,7 @@
       <tr>
         <td><%= supplier.name %></td>
         <td><%= supplier.product_request_url %></td>
-        <td><%= link_to 'Show', supplier %></td>
+        <td><%= link_to 'Show', supplier_path(supplier) %></td>
         <td><%= link_to 'Edit', edit_supplier_path(supplier) %></td>
         <td><%= link_to 'Destroy', supplier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

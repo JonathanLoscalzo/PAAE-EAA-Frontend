@@ -4,7 +4,7 @@ class SuppliersController < ApplicationController
   # GET /suppliers
   # GET /suppliers.json
   def index
-    @suppliers = Supplier.all
+    @suppliers = SuppliersHelper.all(session[:JSESSIONID])
   end
 
   # GET /suppliers/1
@@ -24,10 +24,10 @@ class SuppliersController < ApplicationController
   # POST /suppliers
   # POST /suppliers.json
   def create
-    @supplier = Supplier.new(supplier_params)
 
+    @supplier = SuppliersHelper.save(supplier_params, session[:JSESSIONID])
     respond_to do |format|
-      if @supplier.save
+      if @supplier.errors.empty?
         format.html { redirect_to @supplier, notice: 'Supplier was successfully created.' }
         format.json { render :show, status: :created, location: @supplier }
       else
@@ -64,7 +64,7 @@ class SuppliersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_supplier
-      @supplier = Supplier.find(params[:id])
+      @supplier = SuppliersHelper.find(params[:id], session[:JSESSIONID])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
