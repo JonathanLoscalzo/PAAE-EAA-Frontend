@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h3>Listado de productos</h3>
 
 <a class="btn-floating btn-large waves-effect waves-light red" href="/products/new">
@@ -24,7 +22,7 @@
         <td><%= product.amount %></td>
         
         <td><%= link_to 'Detalles', product_path(product)  %></td>
-        <td><%= link_to 'Eliminar', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
       </tr>
     <% end %>
   </tbody>

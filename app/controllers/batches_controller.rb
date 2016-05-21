@@ -25,10 +25,10 @@ class BatchesController < ApplicationController
   def create
    
    
-    @batch = BatchesHelper.save(@product, batch_params, session[:JSESSIONID])
+    @batch = BatchService.save(batch_params, session[:JSESSIONID])
     respond_to do |format|
       if @batch.errors.empty?
-        format.html {  redirect_to product_path(@product), notice: 'Batch was successfully created.' }
+        format.html {  redirect_to product_path(@product), notice: 'Lote creado exitosamente' }
         format.json { render :show, status: :created, location: @batch }
       else
         format.html { render :new }
@@ -57,7 +57,7 @@ class BatchesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_product
 
-      @product = ProductsHelper.find(params[:product_id], session[:JSESSIONID])
+      @product = ProductService.find(params[:product_id], session[:JSESSIONID])
     end
 
     def set_batch

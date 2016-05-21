@@ -5,19 +5,19 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = ProductsHelper.all(session[:JSESSIONID])
+    @products = ProductService.all(session[:JSESSIONID])
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
-    @batches = BatchesHelper.all(@product, session[:JSESSIONID])
+    @batches = BatchService.all(@product, session[:JSESSIONID])
   end
 
   # GET /products/new
   def new
     @product = Product.new
-    @suppliers = SuppliersHelper.all(session[:JSESSIONID])
+    @suppliers = SupplierService.all(session[:JSESSIONID])
 
   end
 
@@ -29,10 +29,10 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     
-    @product = ProductsHelper.save(product_params, session[:JSESSIONID])
+    @product = ProductService.save(product_params, session[:JSESSIONID])
     respond_to do |format|
       if @product.errors.empty?
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to @product, notice: 'Producto creado exitosamente.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -58,7 +58,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    ProductsHelper.destroy(params[:id], session[:JSESSIONID])
+    ProductService.destroy(params[:id], session[:JSESSIONID])
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
@@ -69,7 +69,7 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = ProductsHelper.find(params[:id], session[:JSESSIONID])
+      @product = ProductService.find(params[:id], session[:JSESSIONID])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

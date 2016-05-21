@@ -1,10 +1,22 @@
 Rails.application.routes.draw do
+
+  resources :clients
   resources :suppliers
+
   resources :products do
     resources :batches
   end
  
   resources :items
+
+  root 'home#index'
+
+  get 'create_client'   => 'home#create_client'
+  get 'create_supplier' => 'home#create_supplier'
+  get 'create_product'  => 'home#create_product'
+  get 'create_batch'    => 'home#create_batch'
+  get 'create_all'      => 'home#create_all'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

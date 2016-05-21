@@ -1,0 +1,8 @@
+<h3> <%= @client.first_name %> <%= @client.last_name %></h3>
+
+<p>
+  <strong>DNI:</strong>
+  <%= @client.dni %>
+</p>
+
+<%= link_to 'Back', clients_path, :class =>"btn waves-effect waves-light"  %>

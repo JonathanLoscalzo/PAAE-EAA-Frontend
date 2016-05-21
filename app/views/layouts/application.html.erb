@@ -11,25 +11,29 @@
 
 		<nav>
 		    <div class="nav-wrapper">
-					<a href="/" class="brand-logo right">Rails</a>
-					<ul id="nav-mobile" class="left">
-						<li><a href="/products">Productos</a></li>
-						<li><a href="/suppliers">Proveedores</a></li>
-					</ul>
-					</div>
+				<a href="/" class="brand-logo center">Rails</a>
+				<ul id="nav-mobile" class="left">
+					<li><a href="/products">Productos</a></li>
+					<li><a href="/suppliers">Proveedores</a></li>
+					<li><a href="/clients">Clientes</a></li>
+				</ul>
+			</div>
 	    </nav> 
 
          <main>
 			<div class="container" >
+				<% if notice %>
+				  <div class="card-panel teal lighten-2">
+				    <span class="white-text text-darken-2"> <%= notice %></span>
+				  </div>
+				<% end %>
 		 		<%= yield %>
 			</div>
          </main>
 	
 
 		<footer class="page-footer">
-			<div class="container">
-				
-			</div>
+			
 		</footer>
 
 	</body>
