@@ -1,1 +1,4 @@
  Proyecto backend https://github.com/ramirofages/spring-stub-project
+
+##si ejecutamos esta linea, podemos debuggear con visual studio code
+###rdebug-ide --host 127.0.0.1 --port 1234 --dispatcher-port 26162 -- bin/rails s
