@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520222858) do
+ActiveRecord::Schema.define(version: 20160615181943) do
 
   create_table "batches", force: :cascade do |t|
     t.string   "detail"
@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 20160520222858) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "productos", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "minimum"
+    t.integer  "amount"
+    t.integer  "batch_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "productos", ["batch_id"], name: "index_productos_on_batch_id"
+
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.integer  "minimum"
@@ -60,6 +71,13 @@ ActiveRecord::Schema.define(version: 20160520222858) do
     t.string   "product_request_url"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
