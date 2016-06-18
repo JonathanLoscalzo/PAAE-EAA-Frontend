@@ -23,8 +23,6 @@ class BatchesController < ApplicationController
 
   # POST products/1/batches
   def create
-   
-   
     @batch = BatchService.save(batch_params, session[:JSESSIONID])
     respond_to do |format|
       if @batch.errors.empty?
