@@ -33,7 +33,10 @@ class HomeController < ApplicationController
     redirect_to "/"
   end
 
-
+  def create_user
+    create_and_save_user
+    redirect_to "/"
+  end
 
 
   private
@@ -74,6 +77,14 @@ class HomeController < ApplicationController
     }
 
     BatchService.save(batch, session[:JSESSIONID])
+  end
+
+  def create_and_save_user
+    user= {
+      :username => "admin",
+      :password => "admin"
+    }
+    UserService.save(user, session[:JSESSIONID])
   end
 
 end

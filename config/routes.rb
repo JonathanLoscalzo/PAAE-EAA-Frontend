@@ -12,10 +12,14 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  get 'login'   => 'login#show'
+  post 'login'  => 'login#signin'
+
   get 'create_client'   => 'home#create_client'
   get 'create_supplier' => 'home#create_supplier'
   get 'create_product'  => 'home#create_product'
   get 'create_batch'    => 'home#create_batch'
+  get 'create_user'     => 'home#create_user'
   get 'create_all'      => 'home#create_all'
 
   # The priority is based upon order of creation: first created -> highest priority.
