@@ -12,12 +12,13 @@ class LoginController < ApplicationController
 		if(login_results[:success])
 			session[:JSESSIONID] = login_results[:jsessionid]
 			redirect_to '/'
-			puts session[:JSESSIONID]
 		else
 			redirect_to '/login'
 		end
 	end
 
+	private
+	
 	def login_params
 
       #no le des bola a los ultimos 3

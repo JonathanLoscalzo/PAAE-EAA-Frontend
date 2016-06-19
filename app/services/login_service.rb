@@ -8,15 +8,17 @@ class LoginService
 		  headers: { 'Content-Type' => 'application/x-www-form-urlencoded'}
 		}
 		
-		options[:body] = "username=admin&password=admin"
+		options[:body] = "username=#{login_params[:username]}&password=#{login_params[:password]}"
 		
-
 		response = HTTParty.post @@login_url, options
 		#spliteamos la vida para quedarnos unicamente con el numero.
-    	#JSESSIONID=136610EF8907DCE8A284D2C1FECF144A; Path=/web-module 
-    	jsessionid = response.headers["set-cookie"].split(';').first.split("=").last
-
-    	login_results = { success: true, jsessionid: jsessionid}
+    	#JSESSIONID=136610EF8907DCE8A284D2C1FECF144A; Path=/web-module
+    	if(response.code == 200)
+    		jsessionid = response.headers["set-cookie"].split(';').first.split("=").last
+    		login_results = { success: true, jsessionid: jsessionid}
+    	else
+    		login_results = { success: false}
+    	end
 	end
 
 end
