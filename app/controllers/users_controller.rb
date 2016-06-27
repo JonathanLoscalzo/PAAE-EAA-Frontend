@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @roles = [["Admin", "ROLE_ADMIN"], ["Empleado", "ROLE_EMPLOYEE"]]
   end
 
   # GET /users/1/edit
@@ -25,6 +26,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    
     @user = UserService.save(user_params, session[:JSESSIONID])
     respond_to do |format|
       if @user.errors.empty?
@@ -59,6 +61,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :password)
+      params.require(:user).permit(:username, :password, :role)
     end
 end
