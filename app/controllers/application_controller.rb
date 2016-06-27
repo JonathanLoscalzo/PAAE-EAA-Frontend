@@ -5,52 +5,31 @@ class ApplicationController < ActionController::Base
 
 
 
-  #before_action :require_login
-  before_action :require_auto_login
+  before_action :require_login
+  #before_action :require_auto_login
  
 
 
   private
  
   def require_login
-    redirect_to "/login" unless is_authorized 
+    redirect_to "/login" unless is_authenticated 
   end
 
 
   def require_auto_login
     
-    if (! is_authorized)
-      options = login_options
-      options.delete(:cookies)
+    if ( !is_authenticated)
 
-      options[:body] = "username=admin&password=admin"
-
-      response = HTTParty.post base_url+"/login", options
-
-      #spliteamos la vida para quedarnos unicamente con el numero.
-      #JSESSIONID=136610EF8907DCE8A284D2C1FECF144A; Path=/web-module 
-      session[:JSESSIONID] = response.headers["set-cookie"].split(';').first.split("=").last
-
+        login_results = LoginService.login ({ :username => "admin", :password => "admin"})
+        session[:JSESSIONID] = login_results[:jsessionid]
+        puts login_results
     end
 
   end
 
-  ############################################################
-
-  def base_url
-    "http://localhost:8080/web-module"
-  end
-
-  def login_options
-    {
-      cookies: {"JSESSIONID": session[:JSESSIONID]},
-      headers: { 'Content-Type' => 'application/x-www-form-urlencoded'}
-    }
-  end
-
-  def is_authorized
-      result = HTTParty.get base_url, login_options
-      result.code!=401
+  def is_authenticated
+      LoginService.is_authenticated( session[:JSESSIONID])
   end
 
 end
