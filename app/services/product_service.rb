@@ -37,10 +37,14 @@ class ProductService
 		product_params.map do |elem|
 			Product.new(elem)
 		end
-		
 	end
 
 	def self.destroy(id,j_session_id)
 		response = HTTParty.delete @@products_url+"/#{id}", cookies: {"JSESSIONID": j_session_id}
+	end
+
+	def self.all_with_units(j_session_id)
+		response = HTTParty.get  @@products_url+"/all_with_units", cookies: {"JSESSIONID": j_session_id}
+		JSON.parse(response.body)
 	end
 end

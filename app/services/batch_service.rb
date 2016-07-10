@@ -7,7 +7,7 @@ class BatchService
 	end
 
 	def self.save(batch_params, j_session_id)
-		url = batches_url(batch_params[:product_id]) + "/new"
+		url = batches_url(batch_params[:product_id])
 		options = {
 			cookies: {"JSESSIONID": j_session_id},
 			body: batch_params.to_json,

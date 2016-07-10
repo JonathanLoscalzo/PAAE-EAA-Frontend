@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'statistics/show'
+
   resources :users
   resources :clients
   resources :suppliers
@@ -21,6 +23,8 @@ Rails.application.routes.draw do
   get 'create_batch'    => 'home#create_batch'
   get 'create_user'     => 'home#create_user'
   get 'create_all'      => 'home#create_all'
+
+  #get 'statistics'      => 'statistics#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
