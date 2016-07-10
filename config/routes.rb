@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   get 'create_batch'    => 'home#create_batch'
   get 'create_user'     => 'home#create_user'
   get 'create_all'      => 'home#create_all'
+  
+  get 'consume_batch_units'      => 'home#consume_batch_units'
+
 
   #get 'statistics'      => 'statistics#show'
 

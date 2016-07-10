@@ -38,6 +38,13 @@ class HomeController < ApplicationController
     redirect_to "/"
   end
 
+  def consume_batch_units
+    BatchService.consume_units(0,0, 8, session[:JSESSIONID])
+    puts "ASDALSKDALSDKJASLDKJASDLKAJSDALSDKJASLDJKASLDKAJ"
+    redirect_to "/"
+
+  end
+
 
   private
 

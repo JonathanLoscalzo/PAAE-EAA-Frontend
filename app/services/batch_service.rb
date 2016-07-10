@@ -35,6 +35,10 @@ class BatchService
 		response = HTTParty.delete batches_url(batch_params[:product_id])+"/#{batch_id}", cookies: {"JSESSIONID": j_session_id}
 	end
 
+	def self.consume_units(product_id, batch_id, amount, j_session_id)
+		response = HTTParty.get batches_url(product_id)+"/#{batch_id}/consume/#{amount}", cookies: {"JSESSIONID": j_session_id}
+	end
+
 	private 
 	def self.batches_url(product_id) 
 		@@batches_url.gsub("product_id", product_id.to_s)
