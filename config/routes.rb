@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'alarms/show'
+
   get 'statistics/show'
 
   resources :users

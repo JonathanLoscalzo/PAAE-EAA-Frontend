@@ -1,0 +1,25 @@
+<h2>Productos con stock por agotarse</h2>
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Cant actual</th>
+      <th>Cant minima permitida</th>
+      
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product["name"] %></td>
+        <td><%= product["minimum_units"] %></td>
+        <td><%= product["current_units"] %></td>
+        
+        <td><%= link_to 'Detalles', product_path(product["id"])  %></td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -47,4 +47,9 @@ class ProductService
 		response = HTTParty.get  @@products_url+"/all_with_units", cookies: {"JSESSIONID": j_session_id}
 		JSON.parse(response.body)
 	end
+
+	def self.close_to_run_out(j_session_id)
+		response = HTTParty.get  @@products_url+"/close_to_run_out", cookies: {"JSESSIONID": j_session_id}
+		JSON.parse(response.body)
+	end
 end

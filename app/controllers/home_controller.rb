@@ -68,7 +68,7 @@ class HomeController < ApplicationController
   def create_and_save_product
     product={
       :name => "pepsi",
-      :minimum =>"123",
+      :minimum =>"5",
       :supplier_id =>"0"
     }
     ProductService.save(product, session[:JSESSIONID])
