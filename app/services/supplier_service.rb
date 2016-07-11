@@ -16,7 +16,7 @@ class SupplierService
 		}
 		supplier = Supplier.new(supplier_params)
 		if supplier.valid?
-			response = HTTParty.post @@suppliers_url, options
+			response = HTTParty.post @@suppliers_url, options			
 			unless response.code==201 
 				supplier.errors.add(:supplier, 'no se pudo guardar. Codigo de respuesta: '+ response.code.to_s)
 			end

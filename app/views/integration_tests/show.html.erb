@@ -1,0 +1,70 @@
+<h3>Integration Tests</h3>
+
+    <table class="striped">
+  <thead>
+    <tr>
+      <th>TEST</th>
+      <th>RESULTADO</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+        <td>Agregar proveedor</td>
+
+        <% if @add_supplier_test %>
+        	<td>OK</td>
+    	<% else %>
+        	<td>ERROR</td>
+        <% end %>
+  	</tr>
+  	    <tr>
+        <td>Recuperar proveedor</td>
+
+        <% if @retrieve_supplier_test %>
+        	<td>OK</td>
+    	<% else %>
+        	<td>ERROR</td>
+        <% end %>
+  	</tr>
+    <tr>
+        <td>Agregar cliente</td>
+
+        <% if @add_client_test %>
+        	<td>OK</td>
+    	<% else %>
+        	<td>ERROR</td>
+        <% end %>
+  	</tr>
+  	    <tr>
+        <td>Recuperar proveedor</td>
+
+        <% if @retrieve_client_test %>
+        	<td>OK</td>
+    	<% else %>
+        	<td>ERROR</td>
+        <% end %>
+  	</tr>
+
+  	<tr>
+        <td>Agregar usuario</td>
+
+        <% if @add_user_test %>
+        	<td>OK</td>
+    	<% else %>
+        	<td>ERROR</td>
+        <% end %>
+  	</tr>
+  	    <tr>
+        <td>Recuperar usuario</td>
+
+        <% if @retrieve_user_test %>
+        	<td>OK</td>
+    	<% else %>
+        	<td>ERROR</td>
+        <% end %>
+  	</tr>
+  </tbody>
+
+
+

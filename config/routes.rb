@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'integration_tests/show'
+
   get 'alarms/show'
 
   get 'statistics/show'
