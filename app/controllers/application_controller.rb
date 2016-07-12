@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
 
   before_action :require_login
+  before_action :set_menus
   #before_action :require_auto_login
  
 
@@ -14,6 +15,11 @@ class ApplicationController < ActionController::Base
  
   def require_login
     redirect_to "/login" unless is_authenticated 
+  end
+
+  def set_menus
+    menus = session[:menus]
+    @view_menus = menus != nil ? menus : []
   end
 
 

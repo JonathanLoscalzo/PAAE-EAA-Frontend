@@ -17,7 +17,14 @@ class LoginService
 	  		role = cookies.first.split("=").last 
 	  		jsessionid = cookies.last.split("=").last
 	  		
-	  		login_results = { success: true, jsessionid: jsessionid}
+	  		#clientes:/clients;usuarios:/users
+	  		menu_pair = response.body.split(";")
+	  		menu_options = menu_pair.map do |item|
+	  			option_url = item.split(":")
+	  			[option_url.first, option_url.last]
+	  		end
+	  		
+	  		login_results = { success: true, jsessionid: jsessionid, menus: menu_options}
 	  	else
 	  		login_results = { success: false}
 	  	end
