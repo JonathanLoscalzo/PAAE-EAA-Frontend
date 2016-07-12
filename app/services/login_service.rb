@@ -29,7 +29,7 @@ class LoginService
 		options[:cookies] = { "JSESSIONID" => jsessionid }
 
 		result = HTTParty.get @@login_url, options
-      	result.code!=401 && result.code!=403  #unauthorized y forbidden
+      	result.code!=401   #unauthorized y forbidden
 	end
 
 	private 
