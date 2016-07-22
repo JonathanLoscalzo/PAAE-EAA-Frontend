@@ -1,10 +1,15 @@
 class PaymentFormsController < ApplicationController
   before_action :set_payment_form, only: [:show, :edit, :update, :destroy]
   skip_before_action :require_login, only: [:new]
+
+  def initialize
+    @paymentService = PaymentFormService.new
+  end
+
   # GET /payment_forms
   # GET /payment_forms.json
   def index
-    @payment_forms = PaymentForm.all
+    @payment_forms = PaymentFormService.all(session[:JSESSIONID])
   end
 
   # GET /payment_forms/1
