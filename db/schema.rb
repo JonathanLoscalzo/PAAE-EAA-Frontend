@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722090647) do
+ActiveRecord::Schema.define(version: 20160722214629) do
 
   create_table "batches", force: :cascade do |t|
     t.string   "detail"
@@ -43,8 +43,10 @@ ActiveRecord::Schema.define(version: 20160722090647) do
   end
 
   create_table "payment_forms", force: :cascade do |t|
-    t.integer "nombre"
-    t.boolean "permiteDarCambio"
+    t.string   "nombre"
+    t.boolean  "permiteDarCambio"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "payment_forms", ["id"], name: "index_payment_forms_on_id"

@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :payment_forms
   get 'integration_tests/show'
   get 'alarms/show'
   get 'statistics/show'
   resources :users
   resources :clients
   resources :suppliers
-  resources :payment_forms
   resources :products do
     resources :batches
   end
