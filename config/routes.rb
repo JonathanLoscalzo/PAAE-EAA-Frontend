@@ -1,37 +1,30 @@
 Rails.application.routes.draw do
 
   get 'integration_tests/show'
-
   get 'alarms/show'
-
   get 'statistics/show'
-
   resources :users
   resources :clients
   resources :suppliers
-
+  resources :payment_forms
   resources :products do
     resources :batches
   end
- 
   resources :items
-
   root 'home#index'
-
   get 'login'   => 'login#show'
   post 'login'  => 'login#signin'
-
-  get 'create_client'   => 'home#create_client'
+  get 'create_payment_form' => 'home#create_payment_form'
+  get 'create_client' => 'home#create_client'
   get 'create_supplier' => 'home#create_supplier'
-  get 'create_product'  => 'home#create_product'
-  get 'create_batch'    => 'home#create_batch'
-  get 'create_user'     => 'home#create_user'
-  get 'create_all'      => 'home#create_all'
-  
-  get 'consume_batch_units'      => 'home#consume_batch_units'
+  get 'create_product' => 'home#create_product'
+  get 'create_batch' => 'home#create_batch'
+  get 'create_user' => 'home#create_user'
+  get 'create_all' => 'home#create_all'
+  get 'consume_batch_units' => 'home#consume_batch_units'
 
 
-  #get 'statistics'      => 'statistics#show'
+  #get 'statistics' => 'statistics#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
