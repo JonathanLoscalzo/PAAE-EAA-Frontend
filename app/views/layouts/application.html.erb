@@ -12,12 +12,19 @@
 		<nav>
 		    <div class="nav-wrapper">
 				<a href="/" class="brand-logo center">Rails</a>
+
 				<ul id="nav-mobile" class="left">
+
 					<% @view_menus.each do |menu| %>
 						<li><a href="<%= menu.last %>" ><%= menu.first %></a></li>
 					<% end %>
 
 				</ul>
+				<ul id="nav-mobile" class="right">
+      				<li><a href="/rails/info/routes" target="_blank">rake routes</a></li>
+
+				</ul>
+
 			</div>
 	    </nav> 
 

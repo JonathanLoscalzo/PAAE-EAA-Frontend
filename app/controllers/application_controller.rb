@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   def set_menus
     menus = session[:menus]
     @view_menus = menus != nil ? menus : []
+
   end
 
 
@@ -29,6 +30,8 @@ class ApplicationController < ActionController::Base
 
         login_results = LoginService.login ({ :username => "admin", :password => "admin"})
         session[:JSESSIONID] = login_results[:jsessionid]
+        session[:menus] = login_results[:menus]
+
     end
 
   end
