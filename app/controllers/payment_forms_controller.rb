@@ -9,7 +9,7 @@ class PaymentFormsController < ApplicationController
   # GET /payment_forms
   # GET /payment_forms.json
   def index
-    @payment_forms = PaymentFormService.all(session[:JSESSIONID])
+    @payment_forms = @paymentService.all(session[:JSESSIONID])
   end
 
   # GET /payment_forms/1
