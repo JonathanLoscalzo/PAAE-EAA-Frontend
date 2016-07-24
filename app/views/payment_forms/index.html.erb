@@ -9,7 +9,7 @@
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Permitedarcambio</th>
+      <th>Permite dar cambio</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,9 +18,9 @@
     <% @payment_forms.each do |payment_form| %>
       <tr>
         <td><%= payment_form.nombre %></td>
-        <td><%= payment_form.permiteDarCambio %></td>
+        <td><%= payment_form.permiteDarCambio ? 'Sí' : 'No' %></td>
         <td><%= link_to 'Show', payment_form %></td>
-        <td><%= link_to 'Destroy', payment_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', payment_form, method: :delete, data: { confirm: 'Está seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>

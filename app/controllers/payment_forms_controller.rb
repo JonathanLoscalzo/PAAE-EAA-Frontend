@@ -30,10 +30,7 @@ class PaymentFormsController < ApplicationController
   # POST /payment_forms
   # POST /payment_forms.json
   def create
-
-   
     @payment_form = @paymentService.save(payment_form_params, session[:JSESSIONID])
-
     respond_to do |format|
       if @payment_form.errors.empty?
         format.html { redirect_to @payment_form, notice: 'Payment form was successfully created.' }
@@ -78,7 +75,7 @@ class PaymentFormsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def payment_form_params
     result = params.require(:payment_form).permit(:nombre, :permiteDarCambio)
-    result['permiteDarCambio'] = result['permiteDarCambio'].to_b
+    result['permiteDarCambio'] = result['permiteDarCambio'] == '1'
     result
   end
 end

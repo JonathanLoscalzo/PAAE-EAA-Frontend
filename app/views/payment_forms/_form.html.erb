@@ -20,6 +20,10 @@
       <%= f.label :permiteDarCambio %><br>
     </div>
     <div class="actions">
-      <%= f.submit %>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Crear
+        <i class="material-icons right">send</i>
+      </button>
+
+      <%= link_to 'Back', payment_forms_path, :class => "btn waves-effect waves-light" %>
     </div>
 <% end %>
