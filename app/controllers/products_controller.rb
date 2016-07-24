@@ -18,7 +18,6 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @suppliers = SupplierService.all(session[:JSESSIONID])
-
   end
 
   # GET /products/1/edit
@@ -28,7 +27,6 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    
     @product = ProductService.save(product_params, session[:JSESSIONID])
     respond_to do |format|
       if @product.errors.empty?
@@ -67,14 +65,14 @@ class ProductsController < ApplicationController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = ProductService.find(params[:id], session[:JSESSIONID])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = ProductService.find(params[:id], session[:JSESSIONID])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      # , :batch_id --- acordarse de permitir en el futuro el batch_id
-      params.require(:product).permit(:name, :minimum, :amount, :supplier_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def product_params
+    # , :batch_id --- acordarse de permitir en el futuro el batch_id
+    params.require(:product).permit(:name, :minimum, :amount, :supplier_id)
+  end
 end

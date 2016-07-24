@@ -1,11 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Payment Forms</h1>
+<h3>Listado Formas de Pago</h3>
+<a class="btn-floating btn-large waves-effect waves-light red" href="/payment_forms/new">
+  <i class="material-icons">add</i>
+</a>
 
-<table>
+<table class="striped">
   <thead>
     <tr>
-      <th>Id</th>
       <th>Nombre</th>
       <th>Permitedarcambio</th>
       <th colspan="3"></th>
@@ -15,11 +17,9 @@
   <tbody>
     <% @payment_forms.each do |payment_form| %>
       <tr>
-        <td><%= payment_form.id %></td>
         <td><%= payment_form.nombre %></td>
         <td><%= payment_form.permiteDarCambio %></td>
         <td><%= link_to 'Show', payment_form %></td>
-        <td><%= link_to 'Edit', edit_payment_form_path(payment_form) %></td>
         <td><%= link_to 'Destroy', payment_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -27,5 +27,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Payment form', new_payment_form_path %>

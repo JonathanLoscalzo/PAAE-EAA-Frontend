@@ -6,4 +6,8 @@ class PaymentFormService < Service
   def someClass
     PaymentForm
   end
+
+  def possibleError
+    :payment_form
+  end
 end

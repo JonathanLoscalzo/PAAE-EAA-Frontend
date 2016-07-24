@@ -1,8 +1,9 @@
 class PaymentFormsController < ApplicationController
   before_action :set_payment_form, only: [:show, :edit, :update, :destroy]
   skip_before_action :require_login, only: [:new]
+  before_action :set_service
 
-  def initialize
+  def set_service
     @paymentService = PaymentFormService.new
   end
 
@@ -29,10 +30,10 @@ class PaymentFormsController < ApplicationController
   # POST /payment_forms
   # POST /payment_forms.json
   def create
-    @payment_form = PaymentForm.new(payment_form_params)
+    @payment_form = @paymentService.save(payment_form_params, session[:JSESSIONID])
 
     respond_to do |format|
-      if @payment_form.save
+      if @payment_form.errors.empty?
         format.html { redirect_to @payment_form, notice: 'Payment form was successfully created.' }
         format.json { render :show, status: :created, location: @payment_form }
       else
@@ -67,13 +68,13 @@ class PaymentFormsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_payment_form
-      @payment_form = PaymentForm.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_payment_form
+    @payment_form = @paymentService.find(params[:id], session[:JSESSIONID])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def payment_form_params
-      params.require(:payment_form).permit(:id, :nombre, :permiteDarCambio)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def payment_form_params
+    params.require(:payment_form).permit(:nombre, :permiteDarCambio)
+  end
 end

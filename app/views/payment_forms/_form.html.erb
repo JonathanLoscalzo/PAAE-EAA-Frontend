@@ -1,29 +1,25 @@
 <%= form_for(@payment_form) do |f| %>
-  <% if @payment_form.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@payment_form.errors.count, "error") %> prohibited this payment_form from being saved:</h2>
+    <% if @payment_form.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@payment_form.errors.count, "error") %> prohibited this payment_form from being saved:</h2>
 
-      <ul>
-      <% @payment_form.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @payment_form.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :nombre %><br>
+      <%= f.text_field :nombre %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :id %><br>
-    <%= f.text_field :id %>
-  </div>
-  <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
-  </div>
-  <div class="field">
-    <%= f.check_box :permiteDarCambio %>
-    <%= f.label :permiteDarCambio %><br>    
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+      <%= f.check_box :permiteDarCambio %>
+      <%= f.label :permiteDarCambio %><br>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 <% end %>
