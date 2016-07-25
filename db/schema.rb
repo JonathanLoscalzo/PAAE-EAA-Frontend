@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722214629) do
+ActiveRecord::Schema.define(version: 20160725074154) do
 
   create_table "batches", force: :cascade do |t|
     t.string   "detail"
@@ -62,6 +62,31 @@ ActiveRecord::Schema.define(version: 20160722214629) do
   add_index "products", ["batch_id"], name: "index_products_on_batch_id"
   add_index "products", ["supplier_id"], name: "index_products_on_supplier_id"
 
+  create_table "sale_details", force: :cascade do |t|
+    t.integer  "fila"
+    t.float    "precio"
+    t.integer  "cantidad"
+    t.integer  "product_id"
+    t.integer  "sale_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "sale_details", ["product_id"], name: "index_sale_details_on_product_id"
+  add_index "sale_details", ["sale_id"], name: "index_sale_details_on_sale_id"
+
+  create_table "sales", force: :cascade do |t|
+    t.datetime "fecha"
+    t.integer  "nro"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "client_id"
+    t.integer  "user_id"
+  end
+
+  add_index "sales", ["client_id"], name: "index_sales_on_client_id"
+  add_index "sales", ["user_id"], name: "index_sales_on_user_id"
+
   create_table "suppliers", force: :cascade do |t|
     t.string   "name"
     t.string   "product_request_url"
@@ -76,5 +101,16 @@ ActiveRecord::Schema.define(version: 20160722214629) do
     t.datetime "updated_at", null: false
     t.string   "role"
   end
+
+  create_table "vfps", force: :cascade do |t|
+    t.float    "cantidad",        default: 0.0
+    t.integer  "sale_id"
+    t.integer  "payment_form_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "vfps", ["payment_form_id"], name: "index_vfps_on_payment_form_id"
+  add_index "vfps", ["sale_id"], name: "index_vfps_on_sale_id"
 
 end
