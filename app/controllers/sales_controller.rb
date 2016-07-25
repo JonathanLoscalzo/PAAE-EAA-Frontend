@@ -1,10 +1,18 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
+  skip_before_action :require_login, only: [:new]
+  before_action :set_service
 
+  def set_service
+    @saleService = SaleService.new(session[:JSESSIONID])
+    @paymentService = PaymentFormService.new(session[:JSESSIONID])
+  end
   # GET /sales
   # GET /sales.json
   def index
-    @sales = Sale.all
+    @sales = @saleService.all
+    @payments = @paymentService.all
+    @clients = ClientService.all(session[:JSESSIONID])
   end
 
   # GET /sales/1
@@ -15,6 +23,7 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
+    @paymentForms = @payment
   end
 
   # GET /sales/1/edit
@@ -24,7 +33,7 @@ class SalesController < ApplicationController
   # POST /sales
   # POST /sales.json
   def create
-    @sale = Sale.new(sale_params)
+    @sale = Sale..save(sale_params, session[:JSESSIONID])
 
     respond_to do |format|
       if @sale.save
@@ -69,6 +78,6 @@ class SalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
-      params.fetch(:sale, {})
+      params.require(:sale).permit(:fecha)
     end
 end

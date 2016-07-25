@@ -5,8 +5,9 @@ class Service
 
   end
 
-  def initialize
+  def initialize(jssession)
     @url = "http://localhost:8080/web-module/"
+    @jssession = jssession
   end
 
   def find(id, j_session_id)
@@ -32,8 +33,34 @@ class Service
     elem
   end
 
+  def save(params)
+    options = {
+        cookies: {"JSESSIONID": @jssession},
+        body: params.to_json,
+        headers: {'Content-Type' => 'application/json'}
+    }
+
+    elem = someClass.new(params)
+    if elem.valid?
+      response = HTTParty.post url, options
+      unless response.code==201
+        elem.errors.add(possibleError, 'no se pudo guardar. Codigo de respuesta: '+ response.code.to_s)
+      end
+    end
+
+    elem
+  end
+
   def all(j_session_id)
     response = HTTParty.get url, cookies: {"JSESSIONID": j_session_id}
+    params = JSON.parse(response.body)
+    params.map do |elem|
+      someClass.new(elem)
+    end
+  end
+
+  def all()
+    response = HTTParty.get url, cookies: {"JSESSIONID": @jssession }
     params = JSON.parse(response.body)
     params.map do |elem|
       someClass.new(elem)
