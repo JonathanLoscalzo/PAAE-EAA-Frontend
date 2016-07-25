@@ -33,6 +33,18 @@ class Service
     elem
   end
 
+  def test(params)
+    options = {
+        cookies: {"JSESSIONID": @jssession},
+        body: params.to_json,
+        headers: {'Content-Type' => 'application/json'}
+    }
+    response = HTTParty.post url, options
+    unless response.code==201
+      elem.errors.add(possibleError, 'no se pudo guardar. Codigo de respuesta: '+ response.code.to_s)
+    end
+  end
+
   def save(params)
     options = {
         cookies: {"JSESSIONID": @jssession},

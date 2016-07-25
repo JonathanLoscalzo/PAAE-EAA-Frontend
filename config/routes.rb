@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :products do
     resources :batches
   end
+  resources :sales
   resources :items
   root 'home#index'
   get 'login'   => 'login#show'

@@ -1,5 +1,5 @@
 class SalesController < ApplicationController
-  before_action :set_sale, only: [:show, :edit, :update, :destroy]
+  before_action :set_sale, only: [:show, :update, :destroy]
   skip_before_action :require_login, only: [:new]
   before_action :set_service
 
@@ -7,6 +7,7 @@ class SalesController < ApplicationController
     @saleService = SaleService.new(session[:JSESSIONID])
     @paymentService = PaymentFormService.new(session[:JSESSIONID])
   end
+
   # GET /sales
   # GET /sales.json
   def index
@@ -28,6 +29,8 @@ class SalesController < ApplicationController
 
   # GET /sales/1/edit
   def edit
+    str = '{"fecha":"2015-01-01","nro":"123","cliente":{"id": "2"},"detalles":[{"cantidad":"20","fila": 1,"producto": {"id": "1"}}],"precio":"10","formasPago":[{"cantidad": 1,"formaPago":{"id":"1"}}]}'
+    @saleService.test str
   end
 
   # POST /sales
@@ -71,13 +74,13 @@ class SalesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sale
-      @sale = Sale.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_sale
+    @sale = Sale.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def sale_params
-      params.require(:sale).permit(:fecha)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def sale_params
+    params.require(:sale).permit(:fecha)
+  end
 end

@@ -4,13 +4,13 @@ class PaymentFormsController < ApplicationController
   before_action :set_service
 
   def set_service
-    @paymentService = PaymentFormService.new
+    @paymentService = PaymentFormService.new(session[:JSESSIONID])
   end
 
   # GET /payment_forms
   # GET /payment_forms.json
   def index
-    @payment_forms = @paymentService.all(session[:JSESSIONID])
+    @payment_forms = @paymentService.all()
   end
 
   # GET /payment_forms/1
@@ -30,7 +30,7 @@ class PaymentFormsController < ApplicationController
   # POST /payment_forms
   # POST /payment_forms.json
   def create
-    @payment_form = @paymentService.save(payment_form_params, session[:JSESSIONID])
+    @payment_form = @paymentService.save(payment_form_params)
     respond_to do |format|
       if @payment_form.errors.empty?
         format.html { redirect_to @payment_form, notice: 'Payment form was successfully created.' }
