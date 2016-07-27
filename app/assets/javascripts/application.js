@@ -16,3 +16,5 @@
 //= require materialize-sprockets
 //= require Chart.min
 //= require_tree .
+//= require knockout
+//= require knockout.mapping
