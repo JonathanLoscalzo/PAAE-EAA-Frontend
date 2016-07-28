@@ -22,14 +22,13 @@ class SalesController < ApplicationController
   def show
   end
 
-  def persist
-    @saleService.save(set_persist_model)
-  end
-
   # GET /sales/new
   def new
     @sale = Sale.new
-    @paymentForms = @payment
+    @payment_forms = @paymentService.all
+
+    @clients = ClientService.all(session[:JSESSIONID])
+
   end
 
   # GET /sales/1/edit
@@ -41,6 +40,8 @@ class SalesController < ApplicationController
   # POST /sales
   # POST /sales.json
   def create
+
+    asd
     @sale = Sale..save(sale_params, session[:JSESSIONID])
 
     respond_to do |format|

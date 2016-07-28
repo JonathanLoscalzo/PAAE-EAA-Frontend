@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :payment_forms
-  post 'sales/persist'
+  resources :sales
   get 'integration_tests/show'
   get 'alarms/show'
   get 'statistics/show'
@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   resources :products do
     resources :batches
   end
-  resources :sales
   resources :items
   root 'home#index'
   get 'login'   => 'login#show'

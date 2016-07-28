@@ -30,6 +30,7 @@ class HomeController < ApplicationController
     create_and_save_supplier
     create_and_save_product
     create_and_save_batch
+    create_and_save_payment_form
     redirect_to "/"
   end
 
@@ -92,6 +93,15 @@ class HomeController < ApplicationController
       :password => "admin"
     }
     UserService.save(user, session[:JSESSIONID])
+  end
+
+  def create_and_save_payment_form
+    payment_form = {
+      :nombre => "mastercard",
+      :permiteDarCambio => true
+    }
+    service = PaymentFormService.new session[:JSESSIONID]
+    service.save(payment_form)
   end
 
 end
