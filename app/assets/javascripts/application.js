@@ -15,6 +15,9 @@
 //= require turbolinks
 //= require materialize-sprockets
 //= require Chart.min
-//= require_tree .
+//= require_directory ./Required
 //= require knockout
 //= require knockout.mapping
+//= require date
+//= require date/es-AR
+//= require date/extras

@@ -6,6 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <%= yield :head_javascript %>
 </head>
 	<body>
 
@@ -43,6 +44,6 @@
 		<footer class="page-footer">
 			
 		</footer>
-
+    <%= yield :javascript %>
 	</body>
 </html>

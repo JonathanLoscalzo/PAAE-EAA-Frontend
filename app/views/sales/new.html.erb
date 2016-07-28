@@ -1,5 +1,149 @@
-<h1>New Sale</h1>
+<h1>Nueva Venta</h1>
 
 <%= render 'form' %>
+<script>
+  $(document).ready(function () {
+    var vm;
+    $('.datepicker').pickadate();
+    $('.collapsible').collapsible();
+    $('.modal-trigger').leanModal({
+      ready: function () {
+        $('select').material_select();
+        //vm.productoSeleccionado(undefined);
+        vm.cantidad(null);
+        vm.precio(null);
+      }
+    })
 
-<%= link_to 'Back', sales_path %>
+    var LineaTabla = function (codigo, nombre, cantidad, precio) {
+      this.codigo = ko.observable(codigo); //id
+      this.nombre = ko.observable(nombre);
+      this.cantidad = ko.observable(parseInt(cantidad));
+      this.precio = ko.observable(parseFloat(precio));
+      this.total = ko.computed(function () {
+        return parseFloat(cantidad) * parseFloat(precio);
+      });
+
+      this.deleteRow = function () {
+        vm.productos.remove(this);
+      };
+    };
+
+    var LineaPagos = function (nombre, cantidad, id) {
+      this.nombre = ko.observable(nombre);
+      this.cantidad = ko.observable(parseFloat(cantidad));
+      this.id = ko.observable(id);
+      this.deleteRow = function () {
+        vm.pagos.remove(this);
+      };
+    };
+
+    var f = function () {
+      if (vm.productoSeleccionado() == null || vm.cantidad() <= 0) {
+        Materialize.toast("Todos los campos son obligatorios");
+        return;
+      }
+
+      var c = vm.productoSeleccionado().id;
+      var n = vm.productoSeleccionado().name;
+      var precio = vm.productoSeleccionado().id * 2;
+      var p = new LineaTabla(c, n, vm.cantidad(), precio);
+      vm.productos.push(p);
+      vm.productos.notifySubscribers();
+      Materialize.toast('Se agregó un producto a la lista', 4000);
+      $("#modal1").closeModal();
+    }
+
+    var p = function () {
+      if (vm.pagoSeleccionado() == null || vm.precio() <= 0) {
+        Materialize.toast('Todos los campos son obligatorios', 4000);
+        return;
+      }
+      var pay = new LineaPagos(vm.pagoSeleccionado().nombre, vm.precio(), vm.pagoSeleccionado().id);
+      vm.pagos.push(pay);
+      vm.pagos.notifySubscribers();
+      Materialize.toast('Se agregó una forma de pago', 4000);
+      $("#modal2").closeModal();
+    };
+
+    vm = {
+      productos: ko.observableArray([]),
+      pagos: ko.observableArray([]),
+      cantidad: ko.observable(0),
+      precio: ko.observable(0),
+      productoSeleccionado: ko.observable(),
+      pagoSeleccionado: ko.observable(),
+      clienteSeleccionado: ko.observable(null),
+      fechaHoy: ko.observable(Date.today().format("d  M, Y")),
+      AgregarProducto: f,
+      AgregarPago: p
+    };
+
+    vm.Total = ko.computed(function () {
+      var p = 0;
+      var mapp = vm.productos().map(function (c) {
+        return parseFloat(c.total());
+      });
+      if (mapp.length) {
+        p = mapp.reduce(function (n, p) {
+          return n + p;
+        });
+      }
+
+      return parseFloat(p.toFixed(2));
+    });
+
+    vm.Restante = ko.computed(function () {
+      var r = 0;
+      var mapp = vm.pagos().map(function (c) {
+        return parseFloat(c.cantidad());
+      });
+
+      if (mapp.length) {
+        r = mapp.reduce(function (n, r) {
+          return n + r;
+        })
+      }
+
+      return parseFloat((vm.Total() - r).toFixed(2));
+    });
+
+    vm.Vuelto = ko.computed(function () {
+      return -vm.Restante();
+    });
+
+    vm.PagoTotal = ko.computed(function () {
+      var r = 0;
+      var mapp = vm.pagos().map(function (c) {
+        return parseFloat(c.cantidad());
+      });
+
+      if (mapp.length) {
+        r = mapp.reduce(function (n, r) {
+          return n + r;
+        })
+      }
+
+      return parseFloat(r.toFixed(2));
+    });
+
+    $.when($.ajax('/products.json'),
+        $.ajax('/clients.json'),
+        $.ajax('/payment_forms.json'))
+        .then(function (d1, d2, d3) {
+          var prods = d1[0];
+          var clientes = d2[0];
+          var pagos = d3[0];
+          vm.productosActuales = ko.observableArray(prods);
+          vm.clientesActuales = ko.observableArray(clientes);
+          vm.pagosActuales = ko.observableArray(pagos);
+          ko.applyBindings(vm);
+        });
+
+    vm.Persist = function () {
+      //validar todo en front. cd 
+    }
+  })
+
+</script>
+

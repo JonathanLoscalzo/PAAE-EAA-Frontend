@@ -56,6 +56,8 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.1)
+    datejs-rails (2.0.1)
+      railties (>= 3.1)
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.6.0)
@@ -170,6 +172,7 @@ DEPENDENCIES
   byebug
   chartjs-ror
   coffee-rails (~> 4.1.0)
+  datejs-rails
   httparty
   jbuilder (~> 2.0)
   jquery-rails

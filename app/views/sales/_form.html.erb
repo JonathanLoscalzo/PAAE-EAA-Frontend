@@ -1,22 +1,182 @@
 <%= form_for(@sale) do |f| %>
-  <% if @sale.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+    <% if @sale.errors.any? %>
+        <div class="section">
+          <div id="error_explanation">
+            <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
 
-      <ul>
-      <% @sale.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+            <ul>
+              <% @sale.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+    <% end %>
+
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header">
+          <i class="material-icons">filter_drama</i> Datos Factura
+          <strong>Cliente:</strong>
+          <span data-bind="text: clienteSeleccionado() != null ? clienteSeleccionado().last_name : 'Sin Cliente'"></span>
+        </div>
+        <div class="collapsible-body">
+          <div class="container section">
+            <div class="input-field">
+              <dl class="">
+                <dd>Fecha</dd>
+                <dt data-bind="text: fechaHoy"></dt>
+              </dl>
+            </div>
+            <div class="input-field">
+              <label>Cliente </label>
+              <select data-bind="options: clientesActuales,
+                            optionsText: function(i) {return i.first_name +' '+i.last_name},
+                            value: clienteSeleccionado,
+                            optionsCaption: 'Seleccione...'" required>
+              </select>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="material-icons">whatshot</i> Productos
+          <span class="chip">$<span data-bind="text:Total"></span></span></div>
+        <div class="collapsible-body">
+          <div class="container section">
+            <button data-target="modal1" class="btn-floating modal-trigger"><i class="material-icons dp48">queue</i>
+            </button>
+            <table>
+              <thead>
+              <th>código</th>
+              <th>nombre</th>
+              <th>precio U.</th>
+              <th>cantidad</th>
+              <th>precio t.</th>
+              </thead>
+              <tbody data-bind="foreach: productos">
+              <tr>
+                <td data-bind="text: codigo"></td>
+                <td data-bind="text: nombre"></td>
+                <td data-bind="text: precio"></td>
+                <td data-bind="text: cantidad"></td>
+                <td data-bind="text: total"></td>
+                <td data-bind="visible: codigo">
+                  <button class="btn-floating" data-bind="click: deleteRow"><i class="material-icons">delete</i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <td colspan="4"></td>
+                <td>Total: $ <span data-bind="text:Total"></span></td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="material-icons">place</i>Formas de Pago
+          <span><strong>Total Pago: </strong><span class="chip">$<span data-bind="text: PagoTotal"></span></span></span>
+        </div>
+        <div class="collapsible-body">
+          <div class="container section">
+            <button data-target="modal2" class="btn-floating modal-trigger"><i class="material-icons dp48">queue</i>
+            </button>
+            <table>
+              <thead>
+              <th>Nombre</th>
+              <th>cantidad</th>
+              </thead>
+              <tbody data-bind="foreach: pagos">
+              <tr>
+                <td data-bind="text: nombre"></td>
+                <td data-bind="text: cantidad"></td>
+                <td data-bind="visible: nombre() != null">
+                  <button class="btn-floating" data-bind="click: deleteRow"><i class="material-icons">delete</i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <br/>
+        </div>
+      </li>
+      <li class="collection-item active container">
+        <div class="collapsible-header">
+          <div class="row">
+            <div class="col s3">
+
+            </div>
+            <div class="col s3">
+              <span>Total: $ <span data-bind="text:Total"></span></span>
+            </div>
+            <div class="col s3">
+              <!-- ko if: Restante() > 0 -->
+              <span>Resta: $ <span data-bind="text:Restante"></span></span>
+
+              <!-- /ko -->
+
+              <!-- ko if: Restante() <= 0 -->
+              <span>Vuelto: $ <span data-bind="text:Vuelto"></span></span>
+              <!-- /ko -->
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="section actions">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Crear
+        <i class="material-icons right">send</i>
+      </button>
+      <%= link_to 'Cancelar', sales_path, :class => "btn waves-effect waves-light" %>
     </div>
-  <% end %>
 
-    <div class="field">
-      <%= f.label :fecha %><br>
-      <%= f.datetime_select :fecha, :required=>true %>
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Agregar un producto</h4>
+        <div class="input-field">
+          <%= label_tag 'cantidad' %>
+          <%= number_field :producto, :cantidad, {class: 'input-field validate', 'data-bind': 'value: cantidad', 'required': ''} %>
+        </div>
+        <div class="input-field col s12">
+          <select data-bind="options: productosActuales,
+                            optionsText: function(i) {return i.name},
+                            value: productoSeleccionado,
+                            optionsCaption: 'Seleccione...'" required>
+          </select>
+          <label>Productos</label>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a data-bind="click: AgregarProducto" class=" modal-action waves-effect waves-green btn-flat">Agregar</a>
+      </div>
     </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div id="modal2" class="modal">
+      <div class="modal-content">
+        <h4>Agregar un producto</h4>
+        <div class="input-field">
+          <%= label_tag 'cantidad' %>
+          <%= number_field :pago, :cantidad, {class: 'input-field validate', 'step': '0.01', 'data-bind': 'value: precio', 'required': ''} %>
+        </div>
+        <div class="input-field col s12">
+          <select data-bind="options: pagosActuales,
+                            optionsText: function(i) {return i.nombre},
+                            value: pagoSeleccionado,
+                            optionsCaption: 'Seleccione...'" required>
+          </select>
+          <label>Formas de Pago</label>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a data-bind="click: AgregarPago" class=" modal-action waves-effect waves-green btn-flat">Agregar</a>
+      </div>
+    </div>
 <% end %>
