@@ -13,47 +13,58 @@
         </div>
     <% end %>
 
-    <div class="field">
-      <%= f.label "Cliente a facturar: " %>
-      <%= f.select(:client_id, @clients.collect{|c| [c.first_name, c.id]}, {}, { :class =>"browser-default", :required=>true})%>
+    <div class="input-field">
+      <select name=cliente" data-bind="options: clientesActuales,
+                            optionsText: function(i) {return i.first_name +' '+i.last_name},
+                            value: clienteSeleccionado,
+                            optionsCaption: 'Seleccione...'" required>
+      </select>
+      <%= f.label 'Cliente a facturar: ' %>
+
     </div>
-<br>
-    <div class="field">
-      <%= f.label "Forma de pago: " %>
-      <%= f.select(:id, @payment_forms.collect{|pf| [pf.nombre, pf.id]}, {}, { :class =>"browser-default", :required=>true})%>   
+    <br>
+    <div class="input-field">
+
+      <select name="payments" data-bind="options: pagosActuales,
+                            optionsText: function(i) {return i.nombre},
+                            value: pagoSeleccionado,
+                            optionsCaption: 'Seleccione...'" required>
+      </select>
+      <%= f.label 'Forma de Pago ' %>
     </div>
-<br>
+    <br>
     <button data-target="modal1" class="btn-floating modal-trigger"><i class="material-icons dp48">queue</i>
-            </button>
-            <table>
-              <thead>
-              <th>código</th>
-              <th>nombre</th>
-              <th>precio U.</th>
-              <th>cantidad</th>
-              <th>precio t.</th>
-              </thead>
-              <tbody data-bind="foreach: productos">
-              <tr>
-                <td data-bind="text: codigo"></td>
-                <td data-bind="text: nombre"></td>
-                <td data-bind="text: precio"></td>
-                <td data-bind="text: cantidad"></td>
-                <td data-bind="text: total"></td>
-                <td data-bind="visible: codigo">
-                  <button class="btn-floating" data-bind="click: deleteRow"><i class="material-icons">delete</i>
-                  </button>
-                </td>
-              </tr>
-              </tbody>
-              <tfoot>
-              <tr>
-                <td colspan="4"></td>
-                <td>Total: $ <span data-bind="text:Total"></span></td>
-              </tr>
-              </tfoot>
-            </table>
-    
+    </button>
+    <table>
+      <thead>
+      <th>código</th>
+      <th>nombre</th>
+      <th>precio U.</th>
+      <th>cantidad</th>
+      <th>precio t.</th>
+      <th></th>
+      </thead>
+      <tbody data-bind="foreach: productos">
+      <tr>
+        <td data-bind="text: codigo"></td>
+        <td data-bind="text: nombre"></td>
+        <td data-bind="text: precio"></td>
+        <td data-bind="text: cantidad"></td>
+        <td data-bind="text: total"></td>
+        <td data-bind="visible: codigo() != null">
+          <button class="btn-floating" data-bind="click: deleteRow"><i class="material-icons">delete</i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="4"></td>
+        <td>Total: $ <span data-bind="text:Total"></span></td>
+      </tr>
+      </tfoot>
+    </table>
+
 
 
     <div id="modal1" class="modal">
@@ -78,7 +89,7 @@
       </div>
     </div>
 
-    <%= f.submit "TERMINAR", :class => "btn waves-effect waves-light" %>
+    <%= link_to 'TERMINAR', '#', {class: "btn waves-effect waves-light" , 'data-bind': 'click: Persist'}%>
     <%= link_to 'Cancelar', sales_path, :class => "btn waves-effect waves-light" %>
 <% end %>
 

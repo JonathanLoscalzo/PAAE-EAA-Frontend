@@ -26,9 +26,7 @@ class SalesController < ApplicationController
   def new
     @sale = Sale.new
     @payment_forms = @paymentService.all
-
     @clients = ClientService.all(session[:JSESSIONID])
-
   end
 
   # GET /sales/1/edit
@@ -37,12 +35,16 @@ class SalesController < ApplicationController
     @saleService.test str
   end
 
+  def persist
+
+    return 
+  end
   # POST /sales
   # POST /sales.json
   def create
 
-    asd
-    @sale = Sale..save(sale_params, session[:JSESSIONID])
+    return
+    @sale = Sale.save(sale_params, session[:JSESSIONID])
 
     respond_to do |format|
       if @sale.save

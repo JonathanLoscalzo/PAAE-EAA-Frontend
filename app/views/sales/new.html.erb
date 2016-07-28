@@ -4,6 +4,7 @@
 <script>
   $(document).ready(function () {
     var vm;
+    $('select').material_select();
     $('.datepicker').pickadate();
     $('.collapsible').collapsible();
     $('.modal-trigger').leanModal({
@@ -88,7 +89,7 @@
       cantidad: ko.observable(0),
       precio: ko.observable(0),
       productoSeleccionado: ko.observable(),
-      pagoSeleccionado: ko.observable(),
+      pagoSeleccionado: ko.observable(null),
       clienteSeleccionado: ko.observable(null),
       fechaHoy: ko.observable(Date.today().format("d  M, Y")),
       AgregarProducto: f,
@@ -153,15 +154,30 @@
           vm.productosActuales = ko.observableArray(prods);
           vm.clientesActuales = ko.observableArray(clientes);
           vm.pagosActuales = ko.observableArray(pagos);
-          ko.applyBindings(vm);
+          ko.applyBindings(vm)
+          $('select').material_select();
         });
     var validate = function () {
       var valid = true;
-      if (vm.Restante() > 0) {
+      if (!$('#new_sale')[0].checkValidity()) {
+        valid = false;
+      }
+      //if (vm.Restante() > 0) {
+      //  valid = false;
+      //}
+
+      if (vm.productos().length == 0) {
+        valid = false;
+        Materialize.toast('Debe haber al menos un productos', 4000);
+      }
+
+      if (vm.clienteSeleccionado() == null) {
+        Materialize.toast('Debe haber al menos un cliente seleccionado', 4000);
         valid = false;
       }
 
-      if (vm.productos().length == 0) {
+      if (vm.pagoSeleccionado() == null) {
+        Materialize.toast('Debe haber al menos un pago seleccionado', 4000);
         valid = false;
       }
 
@@ -177,9 +193,8 @@
           productos: vm.productos().map(function (e) {
             return e.unmap()
           }),
-          formasPago: vm.pagos().map(function (e) {
-            return e.unmap()
-          })
+          formasPago: ko.toJS(vm.pagoSeleccionado()),
+          authenticity_token: $("[name=authenticity_token]").val()
         }
         $.ajax(
             {
