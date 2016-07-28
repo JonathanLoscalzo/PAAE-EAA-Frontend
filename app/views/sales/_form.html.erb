@@ -130,7 +130,8 @@
     </ul>
 
     <div class="section actions">
-      <button class="btn waves-effect waves-light" type="submit" name="action">Crear
+      <button data-bind="click: Persist"class="btn waves-effect waves-light" type="button" name="action">
+        Terminar
         <i class="material-icons right">send</i>
       </button>
       <%= link_to 'Cancelar', sales_path, :class => "btn waves-effect waves-light" %>

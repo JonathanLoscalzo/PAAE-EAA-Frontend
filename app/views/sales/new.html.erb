@@ -27,6 +27,14 @@
       this.deleteRow = function () {
         vm.productos.remove(this);
       };
+
+      this.unmap = function () {
+        return {
+          cantidad: ko.toJS(this.cantidad),
+          precio: ko.toJS(this.precion),
+          id: ko.toJS(this.codigo)
+        }
+      }
     };
 
     var LineaPagos = function (nombre, cantidad, id) {
@@ -36,6 +44,14 @@
       this.deleteRow = function () {
         vm.pagos.remove(this);
       };
+      this.unmap = function () {
+        return {
+          cantidad: ko.toJS(this.cantidad),
+          formaPago: {
+            id: ko.toJS(this.id)
+          },
+        }
+      }
     };
 
     var f = function () {
@@ -139,9 +155,48 @@
           vm.pagosActuales = ko.observableArray(pagos);
           ko.applyBindings(vm);
         });
+    var validate = function () {
+      var valid = true;
+      if (vm.Restante() > 0) {
+        valid = false;
+      }
 
+      if (vm.productos().length == 0) {
+        valid = false;
+      }
+
+      return valid;
+    };
     vm.Persist = function () {
-      //validar todo en front. cd 
+      //validar todo en front. cd
+
+      if (validate()) {
+        var plainSale = {
+          fecha: Date.today().format("y-m-d"),
+          client_id: vm.clienteSeleccionado() != null && vm.clienteSeleccionado() != undefined ? vm.clienteSeleccionado().id : 0,
+          productos: vm.productos().map(function (e) {
+            return e.unmap()
+          }),
+          formasPago: vm.pagos().map(function (e) {
+            return e.unmap()
+          })
+        }
+        $.ajax(
+            {
+              url: "/sales/persist",
+              dataType: 'json',
+              method: 'POST',
+              data: {sale: plainSale}
+            }
+        ).done(function () {
+
+        }).error(function () {
+
+        }).always(function () {
+
+        });
+
+      }
     }
   })
 

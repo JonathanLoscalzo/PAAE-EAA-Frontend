@@ -1,5 +1,6 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :update, :destroy]
+  before_action :set_persist_model, only: [:persist]
   skip_before_action :require_login, only: [:new]
   before_action :set_service
 
@@ -19,6 +20,10 @@ class SalesController < ApplicationController
   # GET /sales/1
   # GET /sales/1.json
   def show
+  end
+
+  def persist
+    @saleService.save(set_persist_model)
   end
 
   # GET /sales/new
@@ -82,5 +87,9 @@ class SalesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def sale_params
     params.require(:sale).permit(:fecha)
+  end
+
+  def set_persist_model
+    params.require(:sale)
   end
 end
