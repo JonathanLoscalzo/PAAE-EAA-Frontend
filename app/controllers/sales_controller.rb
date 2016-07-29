@@ -36,9 +36,31 @@ class SalesController < ApplicationController
   end
 
   def persist
+    p = set_persist_model
+    sale = Sale.new
+    sale.fecha = Date.strptime(p['fecha'], '%y-%m-%d')
+    sale.sale_details = Array.new
+    p['productos'].to_h.each_with_index do |(k, v), i|
+      detail = SaleDetail.new
+      detail.cantidad = v['cantidad'];
+      detail.fila = i
+      detail.precio = v['precio']
+      detail.product = Product.new id: v['id']
+      sale.sale_details<<detail
+    end
 
-    return 
+    sale.vfps = Array.new
+    p['formasPago'].to_h.each_with_index do |(k,v), i|
+      vfp = Vfp.new
+      vfp.cantidad = v['cantidad']
+      vfp.payment_form = PaymentForm.new id: v['id']
+      sale.vfps << vfp
+    end
+
+    sale.client = Client.new id: p['client_id']
+    @saleService.save_fromjson sale, :include => [:sale_details, :vfps]
   end
+
   # POST /sales
   # POST /sales.json
   def create
@@ -93,6 +115,6 @@ class SalesController < ApplicationController
   end
 
   def set_persist_model
-    params.require(:sale)
+    params.require(:sale).permit(:fecha, :client_id, {:formasPago => [:id, :cantidad]}, {:productos => [:id, :cantidad, :precio]})
   end
 end

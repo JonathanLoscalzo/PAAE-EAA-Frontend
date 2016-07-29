@@ -15,22 +15,17 @@ class Service
     someClass.new (JSON.parse(response.body))
   end
 
-  def save(params, j_session_id)
+  def save_fromjson(params, hashOpts)
     options = {
-        cookies: {"JSESSIONID": j_session_id},
-        body: params.to_json,
+        cookies: {'JSESSIONID': @jssession},
+        body: params.to_json(hashOpts),
         headers: {'Content-Type' => 'application/json'}
     }
 
-    elem = someClass.new(params)
-    if elem.valid?
-      response = HTTParty.post url, options
-      unless response.code==201
-        elem.errors.add(possibleError, 'no se pudo guardar. Codigo de respuesta: '+ response.code.to_s)
-      end
+    response = HTTParty.post url, options
+    unless response.code==201
+      response
     end
-
-    elem
   end
 
   def test(params)

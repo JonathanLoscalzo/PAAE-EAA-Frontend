@@ -32,8 +32,10 @@
       this.unmap = function () {
         return {
           cantidad: ko.toJS(this.cantidad),
-          precio: ko.toJS(this.precion),
-          id: ko.toJS(this.codigo)
+          precio: ko.toJS(this.precio),
+          producto: {
+            id: ko.toJS(this.codigo)
+          }
         }
       }
     };
@@ -48,9 +50,7 @@
       this.unmap = function () {
         return {
           cantidad: ko.toJS(this.cantidad),
-          formaPago: {
-            id: ko.toJS(this.id)
-          },
+          id: ko.toJS(this.id)
         }
       }
     };
@@ -193,7 +193,9 @@
           productos: vm.productos().map(function (e) {
             return e.unmap()
           }),
-          formasPago: ko.toJS(vm.pagoSeleccionado()),
+          formasPago: [{
+            cantidad: 0, id: vm.pagoSeleccionado().id
+          }],
           authenticity_token: $("[name=authenticity_token]").val()
         }
         $.ajax(
