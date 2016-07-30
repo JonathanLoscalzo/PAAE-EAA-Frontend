@@ -33,9 +33,7 @@
         return {
           cantidad: ko.toJS(this.cantidad),
           precio: ko.toJS(this.precio),
-          producto: {
-            id: ko.toJS(this.codigo)
-          }
+          product_id: ko.toJS(this.codigo)
         }
       }
     };
@@ -159,9 +157,9 @@
         });
     var validate = function () {
       var valid = true;
-      if (!$('#new_sale')[0].checkValidity()) {
-        valid = false;
-      }
+      //if (!$('#new_sale')[0].checkValidity()) {
+        //valid = false;
+      //}
       //if (vm.Restante() > 0) {
       //  valid = false;
       //}

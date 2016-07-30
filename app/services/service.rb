@@ -18,7 +18,7 @@ class Service
   def save_fromjson(params, hashOpts)
     options = {
         cookies: {'JSESSIONID': @jssession},
-        body: params.to_json(hashOpts),
+        body: params.as_json(hashOpts).to_json,
         headers: {'Content-Type' => 'application/json'}
     }
 

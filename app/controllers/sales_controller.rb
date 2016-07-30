@@ -45,20 +45,20 @@ class SalesController < ApplicationController
       detail.cantidad = v['cantidad'];
       detail.fila = i
       detail.precio = v['precio']
-      detail.product = Product.new id: v['id']
+      detail.product_id = v['product_id']
       sale.sale_details<<detail
     end
 
     sale.vfps = Array.new
-    p['formasPago'].to_h.each_with_index do |(k,v), i|
+    p['formasPago'].to_h.each_with_index do |(k, v), i|
       vfp = Vfp.new
       vfp.cantidad = v['cantidad']
-      vfp.payment_form = PaymentForm.new id: v['id']
+      vfp.payment_form_id = v['id']
       sale.vfps << vfp
     end
 
     sale.client = Client.new id: p['client_id']
-    @saleService.save_fromjson sale, :include => [:sale_details, :vfps]
+    @saleService.save_fromjson sale, include: [:sale_details, :vfps]
   end
 
   # POST /sales
@@ -115,6 +115,6 @@ class SalesController < ApplicationController
   end
 
   def set_persist_model
-    params.require(:sale).permit(:fecha, :client_id, {:formasPago => [:id, :cantidad]}, {:productos => [:id, :cantidad, :precio]})
+    params.require(:sale).permit(:fecha, :client_id, {:formasPago => [:id, :cantidad]}, {:productos => [:product_id, :cantidad, :precio]})
   end
 end
