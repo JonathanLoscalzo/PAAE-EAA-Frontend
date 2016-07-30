@@ -1,7 +1,37 @@
-<p id="notice"><%= notice %></p>
-
+<% unless flash[:notice].blank? %>
+    <p id="notice"><%= flash[:notice] %></p>
+<% end %>
 <h1>Ventas</h1>
 
 <%= link_to new_sale_path, {class: 'btn-floating btn-large waves-effect waves-light red'} do %>
     <%= content_tag :i, 'add', {class: 'material-icons'} %>
 <% end %>
+
+<table>
+  <thead>
+<tr><th>facturas</th></tr>
+  </thead>
+  <tbody data-bind="foreach: ventas">
+  <tr >
+    <td data-bind="click: $parent.ver.bind($data, id()) "><button class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons dp48">picture_in_picture</i></button></td>
+  </tr>
+  </tbody>
+</table>
+
+
+<script>
+  $(document).ready(function () {
+    var vm = {
+      ventas:'1',
+      ver:'1'
+    };
+    vm.ventas = ko.observableArray([])
+    vm.ver = function (id) {
+      console.log(id);
+    };
+    $.get('/sales.json').done(function (data) {
+      ko.mapping.fromJS(data, {}, vm.ventas)
+    });
+    ko.applyBindings(vm);
+  })
+</script>

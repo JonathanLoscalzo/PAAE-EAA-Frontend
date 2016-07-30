@@ -1,6 +1,14 @@
 <h1>Nueva Venta</h1>
+<div style="display:none" class="card-panel purple lighten-2" data-bind="visible: errors().length > 0 " id="error_explanation">
+  <h5>Error al guardar la factura</h5>
+  <ul class="collection" data-bind="foreach: errors">
+    <li class="collection-item" data-bind="text: $data"></li>
+  </ul>
+</div>
 
 <%= render 'form' %>
+
+
 <script>
   $(document).ready(function () {
     var vm;
@@ -152,13 +160,14 @@
           vm.productosActuales = ko.observableArray(prods);
           vm.clientesActuales = ko.observableArray(clientes);
           vm.pagosActuales = ko.observableArray(pagos);
+          vm.errors = ko.observableArray([])
           ko.applyBindings(vm)
           $('select').material_select();
         });
     var validate = function () {
       var valid = true;
       //if (!$('#new_sale')[0].checkValidity()) {
-        //valid = false;
+      //valid = false;
       //}
       //if (vm.Restante() > 0) {
       //  valid = false;
@@ -203,8 +212,12 @@
               method: 'POST',
               data: {sale: plainSale}
             }
-        ).done(function () {
-
+        ).done(function (d) {
+          if ($.isArray(d.messageErrors) && d.messageErrors.length) {
+            ko.mapping.fromJS(d.messageErrors, {}, vm.errors);
+          } else {
+            window.location = '/sales'
+          }
         }).error(function () {
 
         }).always(function () {
