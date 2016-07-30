@@ -30,7 +30,6 @@ class PaymentFormsController < ApplicationController
   # POST /payment_forms
   # POST /payment_forms.json
   def create
-    asd
     @payment_form = @paymentService.save(payment_form_params)
     respond_to do |format|
       if @payment_form.errors.empty?

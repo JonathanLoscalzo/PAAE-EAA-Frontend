@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :payment_forms
   resources :sales
   post 'sales/persist'
+  get 'sales/result'
   get 'integration_tests/show'
   get 'alarms/show'
   get 'statistics/show'

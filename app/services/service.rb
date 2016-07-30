@@ -24,7 +24,7 @@ class Service
 
     response = HTTParty.post url, options
     unless response.code==201
-      response
+      JSON.parse(response.body)
     end
   end
 
@@ -64,6 +64,12 @@ class Service
     params.map do |elem|
       someClass.new(elem)
     end
+  end
+
+  def all_to_json
+    response = HTTParty.get url, cookies: {"JSESSIONID": @jssession}
+    params = JSON.parse(response.body)
+    return params
   end
 
   def destroy(id)

@@ -12,9 +12,7 @@ class SalesController < ApplicationController
   # GET /sales
   # GET /sales.json
   def index
-    @sales = @saleService.all
-    @payments = @paymentService.all
-    @clients = ClientService.all(session[:JSESSIONID])
+    @sales = @saleService.all_to_json().as_json;
   end
 
   # GET /sales/1
@@ -58,39 +56,28 @@ class SalesController < ApplicationController
     end
 
     sale.client = Client.new id: p['client_id']
-    @saleService.save_fromjson sale, include: [:sale_details, :vfps]
+    possibleErrors = @saleService.save_fromjson sale, include: [:sale_details, :vfps]
+
+    if possibleErrors.blank?
+      flash[:notice] = 'La venta Se Generó correctamente'
+      render :json => 'todo OK'.to_json
+    else
+      render :json => possibleErrors.to_json
+    end
+
   end
 
   # POST /sales
   # POST /sales.json
   def create
 
-    return
-    @sale = Sale.save(sale_params, session[:JSESSIONID])
 
-    respond_to do |format|
-      if @sale.save
-        format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
-        format.json { render :show, status: :created, location: @sale }
-      else
-        format.html { render :new }
-        format.json { render json: @sale.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /sales/1
   # PATCH/PUT /sales/1.json
   def update
-    respond_to do |format|
-      if @sale.update(sale_params)
-        format.html { redirect_to @sale, notice: 'Sale was successfully updated.' }
-        format.json { render :show, status: :ok, location: @sale }
-      else
-        format.html { render :edit }
-        format.json { render json: @sale.errors, status: :unprocessable_entity }
-      end
-    end
+
   end
 
   # DELETE /sales/1
@@ -106,7 +93,9 @@ class SalesController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_sale
-    @sale = Sale.find(params[:id])
+    if !params[:id].blank?
+      @sale = @saleService.find(params[:id])
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
