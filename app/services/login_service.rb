@@ -18,13 +18,18 @@ class LoginService
 	  		jsessionid = cookies.last.split("=").last
 	  		
 	  		#clientes:/clients;usuarios:/users
-	  		menu_pair = response.body.split(";")
+
+	  		menu_and_client_id = response.body.split "||"
+	  		client_id = menu_and_client_id.last
+	  		
+
+	  		menu_pair = menu_and_client_id.first.split(";")
 	  		menu_options = menu_pair.map do |item|
 	  			option_url = item.split(":")
 	  			[option_url.first, option_url.last]
 	  		end
 	  		
-	  		login_results = { success: true, jsessionid: jsessionid, menus: menu_options}
+	  		login_results = { success: true, jsessionid: jsessionid, menus: menu_options, client_id: client_id }
 	  	else
 	  		login_results = { success: false}
 	  	end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'integration_tests/show'
   get 'alarms/show'
   get 'statistics/show'
+  get 'client_sales' => 'sales#client_sales'
   resources :users
   resources :clients
   resources :suppliers
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'login'   => 'login#show'
   post 'login'  => 'login#signin'
+  get 'create_user_and_client' => 'home#create_user_and_client'
   get 'create_payment_form' => 'home#create_payment_form'
   get 'create_client' => 'home#create_client'
   get 'create_supplier' => 'home#create_supplier'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725074154) do
+ActiveRecord::Schema.define(version: 20160730061109) do
 
   create_table "batches", force: :cascade do |t|
     t.string   "detail"
@@ -32,7 +32,10 @@ ActiveRecord::Schema.define(version: 20160725074154) do
     t.integer  "dni"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "clients", ["user_id"], name: "index_clients_on_user_id"
 
   create_table "items", force: :cascade do |t|
     t.string   "name",       null: false

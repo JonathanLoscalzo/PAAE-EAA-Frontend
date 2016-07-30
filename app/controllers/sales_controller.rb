@@ -22,6 +22,10 @@ class SalesController < ApplicationController
   def show
   end
 
+  def client_sales
+    @saleService.all_client_sales(session[:client_id])
+  end
+
   # GET /sales/new
   def new
     @sale = Sale.new

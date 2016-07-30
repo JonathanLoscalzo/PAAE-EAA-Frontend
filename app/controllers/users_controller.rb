@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @roles = [["Admin", "ROLE_ADMIN"], ["Empleado", "ROLE_EMPLOYEE"]]
+    @roles = [["Admin", "ROLE_ADMIN"], ["Empleado", "ROLE_EMPLOYEE"], ["Cliente", "ROLE_CLIENT"]]
   end
 
   # GET /users/1/edit

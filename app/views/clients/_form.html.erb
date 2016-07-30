@@ -23,6 +23,12 @@
     <%= f.label :dni %><br>
     <%= f.number_field :dni %>
   </div>
+
+  <div class="field">
+    <%= f.label "Usuario asociado: " %>
+    <%= f.select(:id, @users.map{|user| [user.username, user.id]}, {}, { :class =>"browser-default", :required=>true} ) %>   
+  </div>
+
    <button class="btn waves-effect waves-light" type="submit" name="action">Crear
     <i class="material-icons right">send</i>
   </button>

@@ -10,8 +10,9 @@ class LoginController < ApplicationController
 		login_results = LoginService.login(login_params)
 
 		if(login_results[:success])
-			session[:JSESSIONID] = login_results[:jsessionid]
-			session[:menus] = login_results[:menus]
+			session[:JSESSIONID] 	= login_results[:jsessionid]
+			session[:menus] 			= login_results[:menus]
+			session[:client_id] 	= login_results[:client_id]
 			redirect_to '/'
 		else
 			redirect_to '/login'

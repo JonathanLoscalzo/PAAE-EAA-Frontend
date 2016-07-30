@@ -4,6 +4,17 @@ class HomeController < ApplicationController
     
   end
 
+  def create_user_and_client
+    create_and_save_user
+    create_and_save_client
+    redirect_to "/"
+    
+  end
+
+  def create_user
+    create_and_save_user
+    redirect_to "/"
+  end
 
   def create_client
   	create_and_save_client
@@ -34,10 +45,7 @@ class HomeController < ApplicationController
     redirect_to "/"
   end
 
-  def create_user
-    create_and_save_user
-    redirect_to "/"
-  end
+
 
   def consume_batch_units
     BatchService.consume_units(0,0, 8, session[:JSESSIONID])
@@ -53,7 +61,8 @@ class HomeController < ApplicationController
     client={
       :first_name => "juan",
       :last_name =>"perez",
-      :dni =>"1234"
+      :dni =>"1234",
+      :user_id => "0"
     }
     ClientService.save(client, session[:JSESSIONID])
   end
@@ -90,7 +99,8 @@ class HomeController < ApplicationController
   def create_and_save_user
     user= {
       :username => "admin",
-      :password => "admin"
+      :password => "admin",
+      :role => "ROLE_CLIENT"
     }
     UserService.save(user, session[:JSESSIONID])
   end
