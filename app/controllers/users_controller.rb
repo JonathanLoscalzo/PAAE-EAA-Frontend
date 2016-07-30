@@ -26,7 +26,6 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    
     @user = UserService.save(user_params, session[:JSESSIONID])
     respond_to do |format|
       if @user.errors.empty?

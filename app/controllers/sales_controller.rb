@@ -1,8 +1,8 @@
 class SalesController < ApplicationController
+  before_action :set_service
   before_action :set_sale, only: [:show, :update, :destroy]
   before_action :set_persist_model, only: [:persist]
   skip_before_action :require_login, only: [:new]
-  before_action :set_service
 
   def set_service
     @saleService = SaleService.new(session[:JSESSIONID])
@@ -21,7 +21,7 @@ class SalesController < ApplicationController
   end
 
   def client_sales
-    @saleService.all_client_sales(session[:client_id])
+    @sales_json = @saleService.all_client_sales(session[:client_id])
   end
 
   # GET /sales/new
@@ -97,8 +97,8 @@ class SalesController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_sale
-    if !params[:id].blank?
-      @sale = @saleService.find(params[:id])
+    if !params['id'].blank?
+      @sale = @saleService.find_json(params['id'])
     end
   end
 

@@ -1,4 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Ventas</h1>
-tus queridas ventas
+<table class="striped">
+  <thead>
+  <tr>
+    <th>id</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @sales_json.each do |sale| %>
+      <tr>
+        <td><%= sale['id'] %></td>
+        <td>
+          <a href="/sales/<%= sale['id'] %>" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons dp48">picture_in_picture</i></a>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -15,6 +15,11 @@ class Service
     someClass.new (JSON.parse(response.body))
   end
 
+  def find_json(id)
+    response = HTTParty.get url + "/#{id}", cookies: {"JSESSIONID": @jssession}
+    JSON.parse(response.body)
+  end
+
   def save_fromjson(params, hashOpts)
     options = {
         cookies: {'JSESSIONID': @jssession},

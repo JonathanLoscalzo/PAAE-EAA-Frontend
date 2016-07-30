@@ -52,19 +52,6 @@ ActiveRecord::Schema.define(version: 20160730061109) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "payment_forms", ["id"], name: "index_payment_forms_on_id"
-
-  create_table "productos", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "minimum"
-    t.integer  "amount"
-    t.integer  "batch_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "productos", ["batch_id"], name: "index_productos_on_batch_id"
-
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.integer  "minimum"

@@ -8,11 +8,10 @@ class HomeController < ApplicationController
     create_and_save_user
     create_and_save_client
     redirect_to "/"
-    
   end
 
   def create_user
-    create_and_save_user
+    #create_and_save_user
     redirect_to "/"
   end
 
@@ -98,8 +97,8 @@ class HomeController < ApplicationController
 
   def create_and_save_user
     user= {
-      :username => "admin",
-      :password => "admin",
+      :username => "client",
+      :password => "client",
       :role => "ROLE_CLIENT"
     }
     UserService.save(user, session[:JSESSIONID])

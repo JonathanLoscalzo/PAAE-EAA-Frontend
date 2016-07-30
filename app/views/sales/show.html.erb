@@ -1,4 +1,29 @@
 <p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_sale_path(@sale) %> |
-<%= link_to 'Back', sales_path %>
+<br>
+Fecha: <%= @sale['fecha'] %>
+<br>
+cliente: <%= @sale['client']['first_name'] %> <%= @sale['client']['last_name'] %>
+<br>
+<table>
+  <thead>
+  <tr>
+    <th>fila</th>
+    <th>cantidad</th>
+    <th>Nombre</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @sale['sale_details'].to_a.each do |v| %>
+      <tr>
+        <td><%= v['fila'] %></td>
+        <td><%= v['cantidad'] %></td>
+        <td><%= v['product']['name'] %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<% @sale['payment_forms'].to_a.each do |v| %>
+    FORMA DE PAGO: <%= v['payment_form']['nombre'] %>
+<% end %>
+<br>
+<%= link_to 'Back', client_sales_url, :class =>"btn waves-effect waves-light" %>
