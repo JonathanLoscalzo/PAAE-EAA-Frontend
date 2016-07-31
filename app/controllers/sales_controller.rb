@@ -27,8 +27,8 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
-    @payment_forms = @paymentService.all
-    @clients = ClientService.all(session[:JSESSIONID])
+    @payment_forms = @paymentService.all || []
+    @clients = ClientService.all(session[:JSESSIONID]) || []
   end
 
   # GET /sales/1/edit

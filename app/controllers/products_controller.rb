@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
-    @suppliers = SupplierService.all(session[:JSESSIONID])
+    @suppliers = SupplierService.all(session[:JSESSIONID]) || []
   end
 
   # GET /products/1/edit

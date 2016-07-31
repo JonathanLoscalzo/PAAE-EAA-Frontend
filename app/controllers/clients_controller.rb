@@ -15,7 +15,7 @@ class ClientsController < ApplicationController
   # GET /clients/new
   def new
     @client = Client.new
-    @users = UserService.all(session[:JSESSIONID])
+    @users = UserService.all(session[:JSESSIONID]) || []
   end
 
   # GET /clients/1/edit
