@@ -6,9 +6,7 @@ class LoginController < ApplicationController
 	end
 
 	def signin
-
 		login_results = LoginService.login(login_params)
-
 		if(login_results[:success])
 			session[:JSESSIONID] 	= login_results[:jsessionid]
 			session[:menus] 			= login_results[:menus]
