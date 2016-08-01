@@ -21,8 +21,8 @@ class SalesController < ApplicationController
   end
 
   def client_sales
-    if session[:client_id].blank?
-      index
+    if session[:role] == 'ROLE_ADMIN'
+      render :index
     else
       @sales_json = @saleService.all_client_sales(session[:client_id])
     end
@@ -46,6 +46,7 @@ class SalesController < ApplicationController
     sale = Sale.new
     sale.fecha = Date.strptime(p['fecha'], '%y-%m-%d')
     sale.sale_details = Array.new
+
     p['productos'].to_h.each_with_index do |(k, v), i|
       detail = SaleDetail.new
       detail.cantidad = v['cantidad'];

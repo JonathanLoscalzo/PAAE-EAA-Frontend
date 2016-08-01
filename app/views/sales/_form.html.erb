@@ -23,14 +23,19 @@
 
     </div>
     <br>
-    <div class="input-field">
-
-      <select name="payments" data-bind="options: pagosActuales,
+    <div class="row">
+      <div class="col s9 m9 l9 input-field">
+        <select name="payments" data-bind="options: pagosActuales,
                             optionsText: function(i) {return i.nombre},
                             value: pagoSeleccionado,
                             optionsCaption: 'Seleccione...'" required>
-      </select>
-      <%= f.label 'Forma de Pago ' %>
+        </select>
+        <%= f.label 'Forma de Pago ' %>
+      </div>
+      <div class="input-field col s3 m3 l3">
+        <%= label :cantidad, 'cantidad' %>
+        <%= number_field :cantidad, 'cantidad',{'data-bind':'value: cantidadFormaPago'} %>
+      </div>
     </div>
     <br>
     <button data-target="modal1" class="btn-floating modal-trigger"><i class="material-icons dp48">queue</i>
@@ -48,7 +53,7 @@
       <tr>
         <td data-bind="text: codigo"></td>
         <td data-bind="text: nombre"></td>
-        <td data-bind="text: precio"></td>
+        <td data-bind="text: price"></td>
         <td data-bind="text: cantidad"></td>
         <td data-bind="text: total"></td>
         <td data-bind="visible: codigo() != null">
@@ -61,6 +66,10 @@
       <tr>
         <td colspan="4"></td>
         <td>Total: $ <span data-bind="text:Total"></span></td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td data-bind="visible: parseFloat(Vuelto()) >= 0">Vuelto: $ <span data-bind="text:Vuelto"></span></td>
       </tr>
       </tfoot>
     </table>
@@ -89,7 +98,7 @@
       </div>
     </div>
 
-    <%= link_to 'TERMINAR', '#', {class: "btn waves-effect waves-light" , 'data-bind': 'click: Persist'}%>
+    <%= link_to 'TERMINAR', '#', {class: "btn waves-effect waves-light", 'data-bind': 'click: Persist'} %>
     <%= link_to 'Cancelar', sales_path, :class => "btn waves-effect waves-light" %>
 <% end %>
 

@@ -10,6 +10,7 @@ cliente: <%= @sale['client']['first_name'] %> <%= @sale['client']['last_name'] %
     <th>fila</th>
     <th>cantidad</th>
     <th>Nombre</th>
+    <th>precio T.</th>
   </tr>
   </thead>
   <tbody>
@@ -18,12 +19,30 @@ cliente: <%= @sale['client']['first_name'] %> <%= @sale['client']['last_name'] %
         <td><%= v['fila'] %></td>
         <td><%= v['cantidad'] %></td>
         <td><%= v['product']['name'] %></td>
+        <td><%= v['precio'] %></td>
       </tr>
   <% end %>
   </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="2"></td>
+    <td>
+      Total:
+    </td>
+    <td>
+      $ <%= @sale['sale_details'].to_a.inject(0) { |a, b| a + b['precio'] } %>
+    </td>
+  </tr>
+  <% @sale['payment_forms'].to_a.each do |v| %>
+      <tr>
+        <td colspan="2"></td>
+        <td> <strong><%= v['payment_form']['nombre'] %></strong> Pago</td>
+        <td>
+          $ <%= v['payment_form']['cantidad'] || 0 %>
+        </td>
+      </tr>
+  <% end %>
+  </tfoot>
 </table>
-<% @sale['payment_forms'].to_a.each do |v| %>
-    FORMA DE PAGO: <%= v['payment_form']['nombre'] %>
-<% end %>
 <br>
-<%= link_to 'Back', client_sales_url, :class =>"btn waves-effect waves-light" %>
+<%= link_to 'Back', client_sales_url, :class => "btn waves-effect waves-light" %>

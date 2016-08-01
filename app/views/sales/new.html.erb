@@ -28,9 +28,10 @@
       this.codigo = ko.observable(codigo); //id
       this.nombre = ko.observable(nombre);
       this.cantidad = ko.observable(parseInt(cantidad));
-      this.precio = ko.observable(parseFloat(precio));
+      this.price = ko.observable(parseFloat(precio));
+      var self = this;
       this.total = ko.computed(function () {
-        return parseFloat(cantidad) * parseFloat(precio);
+        return parseFloat(self.cantidad()) * parseFloat(self.price());
       });
 
       this.deleteRow = function () {
@@ -40,7 +41,7 @@
       this.unmap = function () {
         return {
           cantidad: ko.toJS(this.cantidad),
-          precio: ko.toJS(this.precio),
+          precio: ko.toJS(this.price),
           product_id: ko.toJS(this.codigo)
         }
       }
@@ -69,11 +70,22 @@
 
       var c = vm.productoSeleccionado().id;
       var n = vm.productoSeleccionado().name;
-      var precio = vm.productoSeleccionado().id * 2;
-      var p = new LineaTabla(c, n, vm.cantidad(), precio);
-      vm.productos.push(p);
-      vm.productos.notifySubscribers();
-      Materialize.toast('Se agregó un producto a la lista', 4000);
+      var precio = parseFloat(vm.productoSeleccionado().price);
+      var d = vm.productos().filter(function (a) {
+        return a.codigo() == vm.productoSeleccionado().id
+      });
+
+      if (d.length == 0) {
+        var p = new LineaTabla(c, n, vm.cantidad(), precio);
+        vm.productos.push(p);
+        vm.productos.notifySubscribers();
+        Materialize.toast('Se agregó un producto a la lista', 4000);
+      } else {
+        d[0].cantidad(parseInt(d[0].cantidad()) + parseInt(vm.cantidad()));
+        vm.productos.notifySubscribers();
+        Materialize.toast('Se actualizó la cantidad', 4000);
+      }
+
       $("#modal1").closeModal();
     }
 
@@ -94,6 +106,7 @@
       pagos: ko.observableArray([]),
       cantidad: ko.observable(0),
       precio: ko.observable(0),
+      cantidadFormaPago: ko.observable(0),
       productoSeleccionado: ko.observable(),
       pagoSeleccionado: ko.observable(null),
       clienteSeleccionado: ko.observable(null),
@@ -118,17 +131,8 @@
 
     vm.Restante = ko.computed(function () {
       var r = 0;
-      var mapp = vm.pagos().map(function (c) {
-        return parseFloat(c.cantidad());
-      });
 
-      if (mapp.length) {
-        r = mapp.reduce(function (n, r) {
-          return n + r;
-        })
-      }
-
-      return parseFloat((vm.Total() - r).toFixed(2));
+      return parseFloat((vm.Total() - parseFloat(vm.cantidadFormaPago())).toFixed(2));
     });
 
     vm.Vuelto = ko.computed(function () {
@@ -188,6 +192,11 @@
         valid = false;
       }
 
+      if (vm.Total() > vm.cantidadFormaPago()) {
+        Materialize.toast('No alcanza a cubrir el pago total', 4000);
+        valid = false;
+      }
+
       return valid;
     };
     vm.Persist = function () {
@@ -201,7 +210,7 @@
             return e.unmap()
           }),
           formasPago: [{
-            cantidad: 0, id: vm.pagoSeleccionado().id
+            cantidad: vm.cantidadFormaPago(), id: vm.pagoSeleccionado().id
           }],
           authenticity_token: $("[name=authenticity_token]").val()
         }
