@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730061109) do
+ActiveRecord::Schema.define(version: 20160801001743) do
 
   create_table "batches", force: :cascade do |t|
     t.string   "detail"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160730061109) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "supplier_id"
+    t.float    "price"
   end
 
   add_index "products", ["batch_id"], name: "index_products_on_batch_id"
