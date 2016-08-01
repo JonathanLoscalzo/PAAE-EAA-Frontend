@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
       login_results = LoginService.login ({:username => "admin", :password => "admin"})
       session[:JSESSIONID] = login_results[:jsessionid]
       session[:menus] = login_results[:menus]
+      session[:role]  = login_results[:role]
     end
   end
 

@@ -29,7 +29,11 @@ class LoginService
 	  			[option_url.first, option_url.last]
 	  		end
 	  		
-	  		login_results = { success: true, jsessionid: jsessionid, menus: menu_options, client_id: client_id }
+	  		login_results = { success: true, 
+	  											jsessionid: jsessionid, 
+	  											menus: menu_options, 
+	  											client_id: client_id,
+	  											role: role }
 	  	else
 	  		login_results = { success: false}
 	  	end
