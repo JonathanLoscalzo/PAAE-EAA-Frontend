@@ -21,7 +21,11 @@ class SalesController < ApplicationController
   end
 
   def client_sales
-    @sales_json = @saleService.all_client_sales(session[:client_id])
+    if session[:client_id].blank?
+      index
+    else
+      @sales_json = @saleService.all_client_sales(session[:client_id])
+    end
   end
 
   # GET /sales/new
