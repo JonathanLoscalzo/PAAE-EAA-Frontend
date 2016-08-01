@@ -73,6 +73,6 @@ class ProductsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def product_params
     # , :batch_id --- acordarse de permitir en el futuro el batch_id
-    params.require(:product).permit(:name, :minimum, :amount, :supplier_id)
+    params.require(:product).permit(:name, :minimum, :amount, :supplier_id, :price)
   end
 end

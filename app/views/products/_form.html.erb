@@ -1,37 +1,39 @@
 <%= form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-    <div class="card-panel purple lighten-2">
-      <h5><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h5>
+    <% if @product.errors.any? %>
+        <div class="card-panel purple lighten-2">
+          <h5><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h5>
 
-      <ul class="collection">
-      <% @product.errors.full_messages.each do |message| %>
-        <li class="collection-item"><%= message %></li>
-      <% end %>
-      </ul>
+          <ul class="collection">
+            <% @product.errors.full_messages.each do |message| %>
+                <li class="collection-item"><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, :required => true %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, :required=>true %>
-  </div>
+    <div class="field">
+      <%= f.label "unidades minimas para la activacion de alarma:" %><br>
+      <%= f.number_field :minimum, :required => true %>
+    </div>
 
+    <div class="field">
+      <%= f.label "Proveedor: " %>
+      <%= collection_select(:product, :supplier_id, @suppliers, :id, :name, {}, class: "browser-default", required: true) %>
+    </div>
 
+    <div class="field">
+      <%= f.label "Precio: " %>
+      <%= f.number_field :price, :required => true %>
+    </div>
 
-  <div class="field">
-    <%= f.label "unidades minimas para la activacion de alarma:" %><br>
-    <%= f.number_field :minimum, :required=>true %>
-  </div>
-
-
-  <div class="field">
-    <%= f.label "Proveedor: " %>
-    <%= collection_select(:product, :supplier_id, @suppliers, :id, :name, {}, class: "browser-default", required: true) %>   
-  </div>
-
-  <br><br>
-  <button class="btn waves-effect waves-light" type="submit" name="action">Crear
-    <i class="material-icons right">send</i>
-  </button>
+    <br><br>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Crear
+      <i class="material-icons right">send</i>
+    </button>
 
 <% end %>
