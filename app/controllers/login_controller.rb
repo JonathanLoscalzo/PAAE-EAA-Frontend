@@ -11,6 +11,7 @@ class LoginController < ApplicationController
 			session[:JSESSIONID] 	= login_results[:jsessionid]
 			session[:menus] 			= login_results[:menus]
 			session[:client_id] 	= login_results[:client_id]
+			session[:role] 				= login_params[:role]
 			redirect_to '/'
 		else
 			redirect_to '/login'
